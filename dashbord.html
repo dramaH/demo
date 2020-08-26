@@ -1,0 +1,324 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Viewport</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="./public/css/devicemark.css">
+    <style>
+        #cesiumContainer {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 1;
+
+        }
+
+        .navDevicenNav {
+            margin: 0 auto;
+            position: absolute;
+            bottom: 100px;
+            z-index: 10;
+            display: flex;
+
+        }
+
+        .navDevicenNav>div {
+            flex: 1;
+        }
+    </style>
+    <script src="./public/spdengine/spdengine.min.js"></script>
+    <div class="container" id="container" style="padding: 0;margin:0;">
+        <div class="bench" id="cesiumContainer">
+        </div>
+
+        <div class="navDevicenNav">
+
+            <div class="alream"> 综合预警</div>
+            <div class="quality">质量问题</div>
+            <div class="safety">安全问题</div>
+            <div class="video"> 视频</div>
+            <div class="crane">起重机</div>
+            <div class="lifter">升降机</div>
+            <div class="position">人员定位 </div>
+
+        </div>
+
+    </div>
+</head>
+
+<body style="height:100%;width: 100%;">
+    <script>
+        let Apis = spdengine.Apis;
+        const right = document.getElementById('cesiumContainer');
+        const navs = document.getElementsByClassName("navDevicenNav")[0]      //.addeventlistener("click",clickone,false)
+
+
+
+
+
+
+
+        const rightBench = spdengine.Scott.create({
+            "container": right,
+            "projectId": "xxx",
+            dock: 4,
+            "system": spdengine.SystemType.ST_3D_WSM,
+            gisOptions: {
+            },
+            useThreads: false,
+            engineSrcPath: './public/spdengine/',
+            envInitSuccessCB: function () {
+                Matrix43D = spdengine.Matrix43D;
+                Vector33D = spdengine.Vector33D;
+                spdengine.Scott.run(rightBench);
+                var api = Apis.getApi(rightBench);
+                var apiUI = api["UI"];
+                var api3d = api["3D"];
+                apiUI.enableToolBars(false);
+                spdengine.Scott.load(rightBench, { url: "./public/demo/demoRenderFile/", workerUrl: "./public/spdengine/", orgModelId: 1, newModelId: 1, modelMatrix: new Matrix43D().setPosition(new Vector33D(0, 0, 0)) });
+                api3d.addEventListener("fileloader_geomallloadend", () => {
+
+
+                    // 监听按钮点击事件
+                    navs.forEach((nav) => {
+                        nav.addeventlistener("click", clickOnChange(nav.value), false)
+                    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    // *********************************function**************************************************
+
+                    /**
+                    * @description navDevice 点击事件回调，分别执行以下内容
+                                   总览（无标签，构件变色，默认选中）
+                                   质量\安全（加载质量\安全标签，选中一个）
+                                   环境（加载环境标签，默认选中一个）
+                                   人员（加载人员姓名标签，动画）
+                                   监控（加载视频标签，激活视频播放）
+                                   设备（加载塔吊\升降机标签（同CI 标签），动画，选中一个塔吊）
+
+                    * @param type 点击类型 总览|环境|设备|。。。
+                    */
+                    function clickOnChange(type) {
+
+                        console.log(type)
+
+                        // 一、清除模型原有标签并重新绘制
+
+                        // 二、更换两侧图表背景
+
+                        // 三、分类型执行动画
+
+
+                    }
+
+                    /**
+                   * @description 为指定的构件集合修改颜色
+                   * @param message 来自ws的塔吊信息
+                   * @param [{}]
+                   */
+
+                    function changeComColor() {
+
+                    }
+
+                    // 渲染模型标签
+                    function renderModelDevice(devices) {
+                        this.currentDeviceId.forEach((item) => {
+                            this.tapi.removeMarkerDeviceInfo(item);
+
+                        });
+                        this.currentDeviceId = [];
+                        devices.forEach((element) => {
+                            let positionInfo = element.positionInfo;
+                            let uuid = element.uuid;
+                            let deviceInfo = element.deviceInfo;
+                            this.currentDeviceId.push(deviceInfo.deviceId);
+                            let info = {
+                                customColor: '#DDDDDD80',
+                                state: deviceInfo.state,   // 颜色
+                                deviceId: deviceInfo.deviceId,  // 标记点id
+                                maxMarkerPointInnerRadius: 6,
+                                maxMarkerPointOutterRadius: 8,
+                                // subLineRadian: Math.PI / 2,
+                                isFlicker: false,
+                                // lookInfo: deviceInfo.lookInfo ? deviceInfo.lookInfo : '',
+                                subLineLength: deviceInfo.subLineLength   // 指针线长度,
+                            };
+                            // this.tapi.markerDeviceInfoByPosition(positionInfo, info);
+                            console.log(this.machineType);
+                            this.tapi.markerDeviceInfoByComponentId(uuid, info);
+
+
+
+                            let html = '';
+                            if (html == '') {
+                                switch (this.machineType) {  // 1 升降机 2塔吊 3安全\质量 4人员定位
+                                    case 1:
+                                        html = "<div class='deviceInfoBox'  id='" + element.serialNo + "'>" +
+                                            "<div class='name'>" + element.name + "</div>" +
+                                            "<div class='serialNo'>备案号：" + element.serialNo + "</div>" +
+
+                                            "<div class='info_1' >  <span class='stopHeight'>运行高度：" + "-" + "</span> " + "</div>" +
+                                            "<div class='info_2' > <span class='speed'>速度：" + "-" + "</span> " + " <span class='load1'>载重：" + "-" + "</span> " + "</div>" +
+                                            "<div class='uuid1' style='height:0px;overflow:hidden' >" + uuid + "</div>" +
+
+                                            " <div class='ball-scale-ripple-multiple'>" +
+                                            " <div></div>" + "<div></div>" + "<div></div>" +
+                                            "<span class ='loadingInfo' >数据同步中</span>" +
+
+
+                                            "</div>";
+                                        break;
+                                    case 2:
+                                        html = "<div class='tadiao'  id='" + element.serialNo + "'>" +
+                                            "<div class='name'  >" + element.name + "</div>" +
+                                            "<div class='serialNo' style=' user-select: none;'>备案号：" + element.serialNo + "</div>" +
+
+                                            "<div class='info_1' > <span class='angle'>转角：" + "-" + "</span> " + " <span class='height'>高度：" + "-" + "</span> " + "</div>" +
+                                            "<div class='info_2' > <span class='percent'>力矩(%)：" + "-" + "</span> " + " <span class='load'>吊重：" + "-" + "</span> " + "</div>" +
+                                            "<div class='uuid' style='height:0px;overflow:hidden' >" + uuid + "</div>" +
+
+                                            " <div class='ball-scale-ripple-multiple'>" +
+                                            " <div></div>" + "<div></div>" + "<div></div>" +
+                                            "<span class ='loadingInfo' >数据同步中</span>" +
+                                            "</div>" +
+
+                                            "</div>";
+                                        break;
+                                    case 3:
+                                    case 6:
+                                        html = "<div class='shiping'  id='" + element.serialNo + "'>" +
+                                            "<div >" + element.name + "</div>" +
+                                            "<div >备案号：" + element.serialNo + "</div>" +
+                                            "<div class='uuid' style='height:0px;overflow:hidden' >" + uuid + "</div>" +
+                                            "</div>";
+                                        break;
+
+                                }
+
+                            }
+
+
+                            console.log(html);
+                            info.div.innerHTML = html;
+                            info.div.className = 'deviceInfoBoxParent';
+
+
+                        });
+                    }
+
+
+                    // 改变标签内容及动画
+                    function changeDeviceInfoBySignalR(message, machineType) {
+
+                        let detilaMsg = message.data;
+                        let dom = document.getElementById(detilaMsg.serialNo);
+                        if (dom) {
+                            // 升降机标签及动画
+                            if (machineType == 1) {
+                                let uuid = dom.getElementsByClassName('uuid1')[0].textContent;
+                                // console.log(spdengine.btoa(uuid))
+                                dom.setAttribute('style', `background-color:${this.signalrService.setDeviceColorForStatus(detilaMsg.status)};backdrop-filter: blur(2px);color: rgba(255,255,255,0.8);`);
+                                dom.getElementsByClassName('stopHeight')[0].innerHTML = `运行高度: ${detilaMsg.stopHeight} M  `;
+                                dom.getElementsByClassName('speed')[0].innerHTML = `速度: ${detilaMsg.speed} m/s  `;
+                                dom.getElementsByClassName('load1')[0].innerHTML = `载重: ${detilaMsg.load} kg  `;
+
+                                if (uuid) {
+                                    console.log(uuid);
+                                    this.chanLifterAnimate(detilaMsg, uuid);
+                                }
+                            }
+                            // 塔吊标签及动画
+                            if (machineType == 2) {
+                                let uuid = dom.getElementsByClassName('uuid')[0].textContent;
+                                dom.setAttribute('style', `background-color:${this.signalrService.setDeviceColorForStatus(detilaMsg.status)};backdrop-filter: blur(2px);color: rgba(255,255,255,0.8);`);
+                                dom.getElementsByClassName('angle')[0].innerHTML = `转角: ${detilaMsg.angle}°`;
+                                dom.getElementsByClassName('height')[0].innerHTML = `高度: ${detilaMsg.height}M`;
+                                dom.getElementsByClassName('percent')[0].innerHTML = `力矩: ${detilaMsg.percent}%`;
+                                dom.getElementsByClassName('load')[0].innerHTML = `吊重: ${detilaMsg.load}吨`;
+                                // if (dom.getElementsByClassName('ball-scale-ripple-multiple').length !== 0) {
+                                //     dom.getElementsByClassName('ball-scale-ripple-multiple')[0].setAttribute('style', 'display:none');
+                                // }
+                                if (uuid) {
+                                    this.chanCraneAngleAnimate(detilaMsg, uuid);
+                                }
+                            }
+
+
+                        }
+                    }
+
+                    /**
+                     * @description 塔吊旋转动画
+                     * @param message 来自ws的塔吊信息
+                     * @param uuid 
+                     */
+                    function chanCraneAngleAnimate(message, uuid) {
+                        let cranes = [];
+                        cranes.push(spdengine.atob("8qNNMbJqn0OKpzZwaV7WmAEA"))
+                        let tc = new TowerCrane(cranes, poles, hangings, api3d);
+                        api.PARAMS.ani_enable = true;
+                        tc.setTCAnimate(Math.PI * 2, 8.0, 0, 0);
+                        api.PARAMS.ani_run = true;
+                    }
+
+                    /**
+                     * @description 升降机动画
+                     * @param message 来自ws的塔吊信息
+                     * @param uuid 
+                     */
+                    function chanLifterAnimate(message, uuid) {
+
+                        let startHeight = message.startHeight;
+                        let stopHeight = message.stopHeight;
+
+                        let timer = setTimeout(() => {
+                            let flashs = [];
+                            let _value = [];
+                            _value.push(0);
+                            _value.push(0);
+                            _value.push(stopHeight - startHeight);
+                            let flash = { guid: uuid, aniType: 0, transType: 0, value: _value, totalTime: 10, sort: 0, chunkid: new Date().valueOf() };
+                            console.log(flash);
+                            flashs.push(flash);
+                            this.Iapi.PARAMS.ani_enable = true;
+                            this.tapi.setAnimateData(flashs);
+                            this.Iapi.PARAMS.ani_run = true;
+                            // this.tapi.enableMarkerRefresh(); // 刷新标签
+                            window.clearTimeout(timer);
+                        }, 600);
+
+
+
+                    }
+
+                    // *********************************function end***********************************************
+
+                });
+            }
+        });
+    </script>
+</body>

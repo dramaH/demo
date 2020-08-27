@@ -383,6 +383,7 @@ height: 100%;">
             let left = document.getElementById("leftImg");
             let right = document.getElementById("rightImg");
             if (currentNav == type) return;
+            renderModelDevice([], 7)
             let leftBottomVideo = document.getElementById("leftBottomVideo");
             let videoListLeft = document.getElementById("videoListLeft");
             let videoListRight = document.getElementById("videoListRight");
@@ -477,9 +478,6 @@ height: 100%;">
             if(index == 4){
                 renderModelDevice(Env_MarkInfo, 5)
             }
-            else {
-                renderModelDevice([], 7)
-            }
 
 
         }
@@ -509,11 +507,12 @@ height: 100%;">
         function renderModelDevice(markInfo, machineType) {
 
             if (!markInfo) return
-            api.PARAMS.mk_hiddenAllMarker = true;
+            // api.PARAMS.mk_hiddenAllMarker = true;
             currentDeviceId.forEach((item) => {
                 api3d.removeMarkerDeviceInfo(item);
             });
             currentDeviceId = [];
+
             markInfo.forEach((element) => {
                 currentDeviceId.push(element.deviceId);
                 let info = {

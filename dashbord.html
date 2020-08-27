@@ -174,8 +174,44 @@ height: 100%;">
             {
                 subLineLength: 0,
                 uuid: "GZb6eIMpc0uZdSH0mIAoswEA",
-                deviceId: this.uuid,
+                deviceId: "GZb6eIMpc0uZdSH0mIAoswEA",
                 isPointStyle: true,
+                level: 'safe1',
+            },
+            {
+                subLineLength: 0,
+                uuid: "FAtMXcpov06OFWDvH0Ed6gEA",
+                deviceId: "FAtMXcpov06OFWDvH0Ed6gEA",
+                isPointStyle: true,
+                level: 'safe2',
+            },
+            {
+                subLineLength: 0,
+                uuid: "FAtMXcpov06OFWDvH0EiggEA",
+                deviceId: "FAtMXcpov06OFWDvH0EiggEA",
+                isPointStyle: true,
+                level: 'safe3',
+            },
+            {
+                subLineLength: 0,
+                uuid: "FAtMXcpov06OFWDvH0Ee+gEA",
+                deviceId: "FAtMXcpov06OFWDvH0Ee+gEA",
+                isPointStyle: true,
+                level: 'safe3'
+            },
+            {
+                subLineLength: 0,
+                uuid: "FAtMXcpov06OFWDvH0EigwEA",
+                deviceId: "FAtMXcpov06OFWDvH0EigwEA",
+                isPointStyle: true,
+                level: 'quality1',
+            },
+            {
+                subLineLength: 0,
+                uuid: "FAtMXcpov06OFWDvH0Ee9gEA",
+                deviceId: "FAtMXcpov06OFWDvH0Ee9gEA",
+                isPointStyle: true,
+                level: 'quality2',
             }
         ];
 
@@ -392,7 +428,10 @@ height: 100%;">
                 changeComColor(uuidStyleForsurvey)
             }
             if (index == 3) {
-                renderModelDevice(Quality_MarkInfo, index)
+                renderModelDevice(Quality_MarkInfo, 3)
+            }
+            else{
+                renderModelDevice([], 7)
             }
 
 
@@ -475,17 +514,9 @@ height: 100%;">
                                 "</div>";
                             break;
                         case 3:
-                            html = "<div class='qualityAndsafety'  id='" + element.serialNo + "'>" +
-                                "<div class='name'  >" + element.name + "</div>" +
-                                "<div class='serialNo' style=' user-select: none;'>备案号：" + element.serialNo + "</div>" +
-
-                                // "<div class='info_1' > <span class='angle'>转角：" + "-" + "</span> " + " <span class='height'>高度：" + "-" + "</span> " + "</div>" +
-                                // "<div class='info_2' > <span class='percent'>力矩(%)：" + "-" + "</span> " + " <span class='load'>吊重：" + "-" + "</span> " + "</div>" +
-                                // "<div class='uuid' style='height:0px;overflow:hidden' >" + element.uuid + "</div>" +
-
-
+                            html = "<div class='qualityAndsafety'  id='" + element.level + "'>" +
                                 "</div>";
-
+                            break;
                         case 4:
                             html = "<div class='position'  id='" + element.serialNo + "'>" +
                                 "<div >" + element.name + "</div>" +

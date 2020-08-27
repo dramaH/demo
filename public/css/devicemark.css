@@ -68,7 +68,7 @@
     margin-right: 4px;
 }
 
-.container .videoContainer{
+.container .videoContainer {
     width: calc(100% - 20px) !important;
     height: calc(100% - 60px) !important;
     padding: 10px;
@@ -84,7 +84,40 @@
     z-index: 999;
 }
 
-.container .leftBottomVideo #surveyVideo video{
+#safe1 {
+    background-image: url("../img/组件\ 25\ –\ 11.png");
+    width: 35px;
+    height: 42px;
+    background-repeat: no-repeat;
+}
+#safe2 {
+    background-image: url("../img/组件\ 25\ –\ 9.png");
+    width: 35px;
+    height: 42px;
+    background-repeat: no-repeat;
+}
+#safe3 {
+    background-image: url("../img/组件\ 25\ –\ 14.png");
+    width: 35px;
+    height: 42px;
+    background-repeat: no-repeat;
+}
+
+#quality1 {
+    background-image: url("../img/组件\ 25\ –\ 5.png");
+    width: 35px;
+    height: 42px;
+    background-repeat: no-repeat;
+}
+
+#quality2 {
+    background-image: url("../img/组件\ 25\ –\ 3.png");
+    width: 35px;
+    height: 42px;
+    background-repeat: no-repeat;
+}
+
+.container .leftBottomVideo #surveyVideo video {
     object-fit: fill;
 }
 

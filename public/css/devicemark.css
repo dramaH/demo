@@ -27,7 +27,7 @@
 .container .leftBottomVideo {
     width: 380px;
     height: 265px;
-    background-color: #2e2e2e99;;
+    background-color: #2e2e2e99;
     margin-top: 36px;
     border: 1px solid #02d6dc;
 }
@@ -41,7 +41,7 @@
 .container .videoList > div {
     width: 380px;
     height: 250px;
-    background-color: #7f7f7f;
+    background-color: #2e2e2e99;
     margin-bottom: 36px;
     border: 1px solid #02d6dc;
 }

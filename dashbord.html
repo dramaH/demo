@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html>
+<html style="width: 100%;
+height: 100%;">
 
 <head>
     <meta charset="UTF-8">
@@ -8,7 +9,7 @@
           content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" href="./public/css/devicemark.css">
     <style>
-        #cesiumContainer {
+    #cesiumContainer {
             width: 100%;
             height: 100%;
             margin: 0;
@@ -27,6 +28,7 @@
             margin: 0 auto;
             position: absolute;
             bottom: 100px;
+            left: 34%;
             z-index: 10;
             display: flex;
 
@@ -34,29 +36,43 @@
 
         .navDevicenNav>div {
             flex: 1;
+            height: 80px;
+            width: 100px;
+            background-repeat: no-repeat;
+            background-position-y: bottom;
+            cursor: pointer;
+
         }
     </style>
     <script src="./public/spdengine/spdengine.min.js"></script>
     <div class="container" id="container" style="padding: 0;margin:0;">
+
+        <div class="left">
+            <img src="./public/img/2-1.png" alt="">
+        </div>
+        <div class="right">
+            <img src="./public/img/2-2.png" alt="" style="width: 100%;
+            height: 100%;">
+        </div>
+
         <div class="bench" id="cesiumContainer">
         </div>
 
         <div class="navDevicenNav">
 
-            <div class="alream"> 综合预警</div>
-            <div class="quality">质量问题</div>
-            <div class="safety">安全问题</div>
-            <div class="video"> 视频</div>
-            <div class="crane">起重机</div>
-            <div class="lifter">升降机</div>
-            <div class="position">人员定位 </div>
+            <div class="survey"></div>
+            <div class="qualisafety"></div>
+            <div class="env"></div>
+            <div class="people"> </div>
+            <div class="video"></div>
+            <div class="device"></div>
 
         </div>
 
     </div>
 </head>
 
-<body style="height:100%;width: 100%;">
+<body style="height:100%;width: 100%;margin: 0;">
     <script>
         let Apis = spdengine.Apis;
         const right = document.getElementById('cesiumContainer');

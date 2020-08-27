@@ -9,7 +9,7 @@ height: 100%;">
           content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" href="./public/css/devicemark.css">
     <style>
-    #cesiumContainer {
+        #cesiumContainer {
             width: 100%;
             height: 100%;
             margin: 0;
@@ -76,8 +76,38 @@ height: 100%;">
     <script>
         var Apis = spdengine.Apis;
         const right = document.getElementById('cesiumContainer');
-        const navs = document.getElementsByClassName("navDevicenNav")[0]
-        var machineType = 1; //  1 升降机 2塔吊 3安全\质量 4人员定位 5环境 6监控
+        const navs = document.getElementsByClassName("navDevicenNav")[0];
+        var machineType = 1;                                                 //  1 升降机 2塔吊 3安全\质量 4人员定位 5环境 6监控
+        var currentDeviceId = []                                             // 当前需渲染的标签id 集合
+
+
+        // 升降机变量
+        const LifterUUIDS = [];
+
+        // 塔吊变量
+        const CraneUUIDS = [];
+        Crane_MarkInfo = p[]
+
+        // 安全
+        const SavetyUUIDS = [];
+        Savety_MarkInfo = [                                                  // 调用标签绘制时传入变量 {} 为一个标签
+            {
+                subLineLength: 0,
+                uuid: "ZM6Onckp5E+nTxoMmJgTXgEA",                                // 对应上面uuids集合内容
+                deviceId: this.uuid,                                             // 标签ID
+                isPointStyle: true,                                          // 是否已点的形式展示
+            }
+        ];
+
+        // 质量
+        const qualityUUIDS = [];
+        Quality_MarkInfo = [];
+
+        // 环境
+        const envUUIDS = [];
+        Env_MarkInfo = [];
+
+
 
         // 人员定位相关变量
         const peopleUUid = ["ZM6Onckp5E+nTxoMmJgTXgEA"];
@@ -104,9 +134,15 @@ height: 100%;">
         peoplePoints.push(vec5);
         peoplePoints.push(vec6);
 
-        // 升降机变量
-        const lifterUUIDS = []
+        // 监控
+        const videoUUIDS = [];
+        const playUrl = [];
 
+        // 总览
+        const uuidStyleForsurvey = [{
+            uuid: "ZM6Onckp5E+nTxoMmJgTXgEA",
+            color: "#000000"
+        }]
 
 
 
@@ -211,46 +247,49 @@ height: 100%;">
 
         /**
         * @description 为指定的构件集合修改颜色
-        * @param message 来自ws的塔吊信息
-        * @param [{}]
+        * @param uuidStyle [{uuid:xxx,color:#000000}]
         */
 
-        function changeComColor() {
-
+        function changeComColor(uuidStyle) {
+            if (!uuidStyle) return
+            api3d.backAllComponentColor();
+            uuidStyle.forEach((item) => {
+                let timer = setTimeout(() => {
+                    let color = item.color.replace('#', '');
+                    api3d.changeComponentColor(spdengine.atob(item.uuid), '0x' + (color.length == 6 ? (color + '80') : color));
+                    clearTimeout(timer);
+                }, 0);
+            });
         }
 
-        // 渲染模型标签
-        function renderModelDevice(devices) {
-            this.currentDeviceId.forEach((item) => {
-                this.tapi.removeMarkerDeviceInfo(item);
 
+        // 渲染模型标签
+        function renderModelDevice(markInfo) {
+
+            if (!markInfo) return
+            currentDeviceId.forEach((item) => {
+                api3d.removeMarkerDeviceInfo(item);
             });
-            this.currentDeviceId = [];
-            devices.forEach((element) => {
-                let positionInfo = element.positionInfo;
-                let uuid = element.uuid;
-                let deviceInfo = element.deviceInfo;
-                this.currentDeviceId.push(deviceInfo.deviceId);
+            currentDeviceId = [];
+            markInfo.forEach((element) => {
+                currentDeviceId.push(element.deviceId);
                 let info = {
                     customColor: '#DDDDDD80',
-                    state: deviceInfo.state,   // 颜色
-                    deviceId: deviceInfo.deviceId,  // 标记点id
+                    state: 4,   // 颜色
+                    deviceId: element.deviceId,  // 标记点id
                     maxMarkerPointInnerRadius: 6,
                     maxMarkerPointOutterRadius: 8,
                     // subLineRadian: Math.PI / 2,
                     isFlicker: false,
                     // lookInfo: deviceInfo.lookInfo ? deviceInfo.lookInfo : '',
-                    subLineLength: deviceInfo.subLineLength   // 指针线长度,
+                    subLineLength: element.subLineLength   // 指针线长度,
                 };
-                // this.tapi.markerDeviceInfoByPosition(positionInfo, info);
-                console.log(this.machineType);
-                this.tapi.markerDeviceInfoByComponentId(uuid, info);
 
-
+                api3d.markerDeviceInfoByComponentId(element.uuid, info);
 
                 let html = '';
                 if (html == '') {
-                    switch (this.machineType) {  // 1 升降机 2塔吊 3安全\质量 4人员定位 5环境 6监控
+                    switch (machineType) {  // 全局变量 1 升降机 2塔吊 3安全\质量 4人员定位 5环境 6监控
                         case 1:
                             html = "<div class='deviceInfoBox'  id='" + element.serialNo + "'>" +
                                 "<div class='name'>" + element.name + "</div>" +
@@ -258,7 +297,7 @@ height: 100%;">
 
                                 "<div class='info_1' >  <span class='stopHeight'>运行高度：" + "-" + "</span> " + "</div>" +
                                 "<div class='info_2' > <span class='speed'>速度：" + "-" + "</span> " + " <span class='load1'>载重：" + "-" + "</span> " + "</div>" +
-                                "<div class='uuid1' style='height:0px;overflow:hidden' >" + uuid + "</div>" +
+                                "<div class='uuid1' style='height:0px;overflow:hidden' >" + element.uuid + "</div>" +
 
                                 " <div class='ball-scale-ripple-multiple'>" +
                                 " <div></div>" + "<div></div>" + "<div></div>" +
@@ -274,7 +313,7 @@ height: 100%;">
 
                                 "<div class='info_1' > <span class='angle'>转角：" + "-" + "</span> " + " <span class='height'>高度：" + "-" + "</span> " + "</div>" +
                                 "<div class='info_2' > <span class='percent'>力矩(%)：" + "-" + "</span> " + " <span class='load'>吊重：" + "-" + "</span> " + "</div>" +
-                                "<div class='uuid' style='height:0px;overflow:hidden' >" + uuid + "</div>" +
+                                "<div class='uuid' style='height:0px;overflow:hidden' >" + element.uuid + "</div>" +
 
 
                                 "</div>";
@@ -286,7 +325,7 @@ height: 100%;">
 
                                 "<div class='info_1' > <span class='angle'>转角：" + "-" + "</span> " + " <span class='height'>高度：" + "-" + "</span> " + "</div>" +
                                 "<div class='info_2' > <span class='percent'>力矩(%)：" + "-" + "</span> " + " <span class='load'>吊重：" + "-" + "</span> " + "</div>" +
-                                "<div class='uuid' style='height:0px;overflow:hidden' >" + uuid + "</div>" +
+                                "<div class='uuid' style='height:0px;overflow:hidden' >" + element.uuid + "</div>" +
 
 
                                 "</div>";
@@ -295,7 +334,7 @@ height: 100%;">
                             html = "<div class='position'  id='" + element.serialNo + "'>" +
                                 "<div >" + element.name + "</div>" +
 
-                                "<div class='uuid' style='height:0px;overflow:hidden' >" + uuid + "</div>" +
+                                "<div class='uuid' style='height:0px;overflow:hidden' >" + element.uuid + "</div>" +
                                 "</div>";
                             break;
 

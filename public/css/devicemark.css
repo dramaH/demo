@@ -117,6 +117,20 @@
     background-repeat: no-repeat;
 }
 
+#env1 {
+    background-image: url("../img/huanjing_icon2.png");
+    width: 35px;
+    height: 42px;
+    background-repeat: no-repeat;
+}
+
+#env2 {
+    background-image: url("../img/huanjing_icon1.png");
+    width: 35px;
+    height: 42px;
+    background-repeat: no-repeat;
+}
+
 .container .leftBottomVideo #surveyVideo video {
     object-fit: fill;
 }

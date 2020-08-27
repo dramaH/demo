@@ -215,9 +215,53 @@ height: 100%;">
             }
         ];
 
+        const Env_MarkInfo = [
+            {
+                subLineLength: 0,
+                uuid: "FAtMXcpov06OFWDvH0EZfgEA",
+                deviceId: "FAtMXcpov06OFWDvH0EZfgEA",
+                isPointStyle: true,
+                level: 'env1',
+            },
+            {
+                subLineLength: 0,
+                uuid: "FAtMXcpov06OFWDvH0EcEQEA",
+                deviceId: "FAtMXcpov06OFWDvH0EcEQEA",
+                isPointStyle: true,
+                level: 'env2',
+            },
+            {
+                subLineLength: 0,
+                uuid: "FAtMXcpov06OFWDvH0Ed6AEA",
+                deviceId: "FAtMXcpov06OFWDvH0Ed6AEA",
+                isPointStyle: true,
+                level: 'env2',
+            },
+            {
+                subLineLength: 0,
+                uuid: "FAtMXcpov06OFWDvH0Ee9AEA",
+                deviceId: "FAtMXcpov06OFWDvH0Ee9AEA",
+                isPointStyle: true,
+                level: 'env2'
+            },
+            {
+                subLineLength: 0,
+                uuid: "FAtMXcpov06OFWDvH0EeYgEA",
+                deviceId: "FAtMXcpov06OFWDvH0EeYgEA",
+                isPointStyle: true,
+                level: 'env1',
+            },
+            {
+                subLineLength: 0,
+                uuid: "FAtMXcpov06OFWDvH0Ee+wEA",
+                deviceId: "FAtMXcpov06OFWDvH0Ee+wEA",
+                isPointStyle: true,
+                level: 'env1',
+            }
+        ];
+
         // 环境
         const envUUIDS = [];
-        const Env_MarkInfo = [];
 
 
         const navs = document.querySelectorAll(".navDevicenNav div");
@@ -430,7 +474,10 @@ height: 100%;">
             if (index == 3) {
                 renderModelDevice(Quality_MarkInfo, 3)
             }
-            else{
+            if(index == 4){
+                renderModelDevice(Env_MarkInfo, 5)
+            }
+            else {
                 renderModelDevice([], 7)
             }
 
@@ -516,6 +563,10 @@ height: 100%;">
                             break;
                         case 3:
                             html = "<div class='qualityAndsafety'  id='" + element.level + "'>" +
+                                "</div>";
+                            break;
+                        case 5:
+                            html = "<div class='env'  id='" + element.level + "'>" +
                                 "</div>";
                             break;
                         case 4:

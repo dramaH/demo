@@ -158,8 +158,6 @@ height: 100%;">
             }
         ];
 
-        // 视频播放列表
-
 
         // 质量
         const qualityUUIDS = ["GZb6eIMpc0uZdSH0mIAoswEA", "/A6CZsNjU0WI5a6aJUjPYAEA"];
@@ -207,9 +205,6 @@ height: 100%;">
                 level: 'quality2',
             }
         ];
-
-
-
 
 
 
@@ -262,17 +257,6 @@ height: 100%;">
 
 
 
-
-
-        // nav变量
-        const navs = document.querySelectorAll(".navDevicenNav div");
-        document.getElementsByClassName("survey")[0].setAttribute('style', 'background-image: url( "./public/img/zonglan_hover.png");')
-        videoPlay();
-
-
-
-
-
         // 人员定位相关变量
         const peopleUUid = [
             {
@@ -312,8 +296,8 @@ height: 100%;">
         const Video_MarkInfo = [
             {
                 subLineLength: 0,
-                uuid: "FAtMXcpov06OFWDvH0EZfgEA",
-                deviceId: "FAtMXcpov06OFWDvH0EZfgEA",
+                uuid: "FAtMXcpov06OFWDvH0EYdAEA",
+                deviceId: "FAtMXcpov06OFWDvH0EYdAEA",
                 isPointStyle: true,
                 level: 'video',
                 name: '视频1'
@@ -336,8 +320,8 @@ height: 100%;">
             },
             {
                 subLineLength: 0,
-                uuid: "FAtMXcpov06OFWDvH0Ee9AEA",
-                deviceId: "FAtMXcpov06OFWDvH0Ee9AEA",
+                uuid: "FAtMXcpov06OFWDvH0EiggEA",
+                deviceId: "FAtMXcpov06OFWDvH0EiggEA",
                 isPointStyle: true,
                 level: 'video',
                 name: '视频4'
@@ -359,6 +343,13 @@ height: 100%;">
                 name: '视频6'
             }
         ];
+
+
+        // nav变量
+        const navs = document.querySelectorAll(".navDevicenNav div");
+        document.getElementsByClassName("survey")[0].setAttribute('style', 'background-image: url( "./public/img/zonglan_hover.png");')
+        videoPlay();
+
 
 
         // 总览
@@ -532,7 +523,7 @@ height: 100%;">
                 animateForpeople()
             }
             if (index == 6) {
-                renderModelDevice(video_MarkInfo, 5)
+                renderModelDevice(Video_MarkInfo, 6)
             }
             if (index == 7) {
 
@@ -626,6 +617,10 @@ height: 100%;">
                             break;
                         case 5:
                             html = "<div class='env'  id='" + element.level + "'>" +
+                                "</div>";
+                            break;
+                        case 6:
+                            html = "<div class='videoLable'  >" + element.name +
                                 "</div>";
                             break;
                         case 4:

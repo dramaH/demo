@@ -45,27 +45,29 @@ height: 100%;">
         }
     </style>
     <script src="./public/spdengine/spdengine.min.js"></script>
+    <script src="./public/spdengine/aliplayer-min.js" type='text/javascript'></script>
     <div class="container" id="container" style="padding: 0;margin:0;">
 
         <div class="left" id="left">
             <img src="./public/img/2-1.png" alt="" id="leftImg">
             <div class="leftBottomVideo" id="leftBottomVideo">
                 <div class="title"><span class="dot"></span> 项目动画</div>
-                <div class="videoContainer"></div>
+                <div class="videoContainer" id="surveyVideo">
+                </div>
             </div>
 
             <div id="videoListLeft" class="videoList">
                 <div>
                     <div class="title"><span class="dot"></span> 视频1</div>
-                    <div class="videoContainer"></div>
+                    <div class="videoContainer" id="videoContainer1"></div>
                 </div>
                 <div>
                     <div class="title"><span class="dot"></span> 视频2</div>
-                    <div class="videoContainer"></div>
+                    <div class="videoContainer" id="videoContainer2"></div>
                 </div>
                 <div>
                     <div class="title"><span class="dot"></span> 视频3</div>
-                    <div class="videoContainer"></div>
+                    <div class="videoContainer" id="videoContainer3"></div>
                 </div>
             </div>
 
@@ -76,15 +78,15 @@ height: 100%;">
             <div id="videoListRight" class="videoList">
                 <div>
                     <div class="title"><span class="dot"></span> 视频4</div>
-                    <div class="videoContainer"></div>
+                    <div class="videoContainer" id="videoContainer4"></div>
                 </div>
                 <div>
                     <div class="title"><span class="dot"></span> 视频5</div>
-                    <div class="videoContainer"></div>
+                    <div class="videoContainer" id="videoContainer5"></div>
                 </div>
                 <div>
                     <div class="title"><span class="dot"></span> 视频6</div>
-                    <div class="videoContainer"></div>
+                    <div class="videoContainer" id="videoContainer6"></div>
                 </div>
             </div>
 
@@ -135,6 +137,30 @@ height: 100%;">
             }
         ];
 
+        // 视频播放列表
+        const videoList = [{
+            key: 'surveyVideo',
+            playUrl: 'https://ar.spdci.test.spdio.com/m/CQEastStationProjectVideo.wmv'
+        }, {
+            key: 'videoContainer1',
+            playUrl: 'https://hls01open.ys7.com/openlive/ba6fef136e0d41789f44660f11cab442.m3u8'
+        }, {
+            key: 'videoContainer2',
+            playUrl: 'https://hls01open.ys7.com/openlive/57c338bed5224a27af0f14268aed6c8e.m3u8'
+        }, {
+            key: 'videoContainer3',
+            playUrl: 'https://hls01open.ys7.com/openlive/2d954e421b4c4d6b884faf383f54409a.m3u8'
+        }, {
+            key: 'videoContainer4',
+            playUrl: 'https://hls01open.ys7.com/openlive/b9c2e579e7ba4ad19edcca638b9d92e2.m3u8'
+        }, {
+            key: 'videoContainer5',
+            playUrl: 'https://hls01open.ys7.com/openlive/8924adfa80364bae98aaeecab002e7cd.m3u8'
+        }, {
+            key: 'videoContainer6',
+            playUrl: 'https://hls01open.ys7.com/openlive/5ea01493f9364ed59f17cdea11cffe5b.m3u8'
+        }]
+
         // 质量
         const qualityUUIDS = [];
         Quality_MarkInfo = [];
@@ -146,7 +172,7 @@ height: 100%;">
 
         const navs = document.querySelectorAll(".navDevicenNav div");
         document.getElementsByClassName("survey")[0].setAttribute('style', 'background-image: url( "./public/img/zonglan_hover.png");')
-
+        videoPlay();
         // 监听按钮点击事件
         navs.forEach((nav) => {
             nav.addEventListener("click", function () {
@@ -260,11 +286,12 @@ height: 100%;">
             console.log(type)
             let left = document.getElementById("leftImg");
             let right = document.getElementById("rightImg");
-            if (currentNav == 'type') return;
+            if (currentNav == type) return;
             let leftBottomVideo = document.getElementById("leftBottomVideo");
             let videoListLeft = document.getElementById("videoListLeft");
             let videoListRight = document.getElementById("videoListRight");
             let index = 2;
+            currentNav = type;
             switch (type) {
                 case 'survey':
                     dom.setAttribute('style', 'background-image: url( "./public/img/zonglan_hover.png");')
@@ -285,6 +312,7 @@ height: 100%;">
                 case 'video':
                     dom.setAttribute('style', 'background-image: url( "./public/img/jiankong_hover.png");')
                     index = 6;
+                    // videoPlay();
                     break;
                 case 'device':
                     dom.setAttribute('style', 'background-image: url( "./public/img/shebei_hover.png");')
@@ -334,7 +362,6 @@ height: 100%;">
             }
             left.setAttribute('src', `./public/img/${index}-1.png`)
             right.setAttribute('src', `./public/img/${index}-2.png`)
-            currentNav = type;
         }
 
         /**
@@ -535,6 +562,30 @@ height: 100%;">
             api.PARAMS.ani_enable = true;
             route.setRouteAnimation(spdengine.atob(peopleUUid), 6.0, 0, 0);
             api.PARAMS.ani_run = true;
+        }
+
+
+        /**
+        * @description 视频播放
+        * @param videoContainerId 容器id
+        * @param item
+        */
+        function videoPlay() {
+            videoList.forEach(item => {
+                const videoObject = {
+                    id: '#' + item.key, // “#”代表容器的ID，“.”或“”代表容器的class
+                    width: '100%',
+                    height: '100%',
+                    isLive: true,
+                    autoplay: true,
+                    skinLayout: false,
+                    enableSystemMenu: true,
+                    // cover: item.coverUrl, // 视频封面
+                    source: item.playUrl // 视频地址
+                };
+                const player = new Aliplayer(videoObject);
+                player.setVolume(0);
+            })
         }
 // *********************************function end***********************************************
     </script>

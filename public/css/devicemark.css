@@ -69,8 +69,8 @@
 }
 
 .container .videoContainer{
-    width: calc(100% - 20px);
-    height: calc(100% - 60px);
+    width: calc(100% - 20px) !important;
+    height: calc(100% - 60px) !important;
     padding: 10px;
 }
 

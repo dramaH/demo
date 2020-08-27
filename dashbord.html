@@ -119,6 +119,10 @@ height: 100%;">
         var machineType = 1;                                                 //  1 升降机 2塔吊 3安全\质量 4人员定位 5环境 6监控
         var currentDeviceId = [];                                             // 当前需渲染的标签id 集合
         var currentNav = "survey";
+        var api3d
+        var api
+        var apiUI
+
 
 
         // 升降机变量
@@ -143,7 +147,7 @@ height: 100%;">
         // 视频播放列表
         const videoList = [{
             key: 'surveyVideo',
-            playUrl: 'https://ar.spdci.test.spdio.com/m/CQEastStationProjectVideo.wmv'
+            playUrl: 'http://spdci.dev.spdio.com/dashboard/public/img/videodemo.mp4'
         }, {
             key: 'videoContainer1',
             playUrl: 'https://hls01open.ys7.com/openlive/ba6fef136e0d41789f44660f11cab442.m3u8'
@@ -165,8 +169,15 @@ height: 100%;">
         }]
 
         // 质量
-        const qualityUUIDS = [];
-        const Quality_MarkInfo = [];
+        const qualityUUIDS = ["GZb6eIMpc0uZdSH0mIAoswEA", "/A6CZsNjU0WI5a6aJUjPYAEA"];
+        const Quality_MarkInfo = [
+            {
+                subLineLength: 0,
+                uuid: "GZb6eIMpc0uZdSH0mIAoswEA",
+                deviceId: this.uuid,
+                isPointStyle: true,
+            }
+        ];
 
         // 环境
         const envUUIDS = [];
@@ -176,14 +187,7 @@ height: 100%;">
         const navs = document.querySelectorAll(".navDevicenNav div");
         document.getElementsByClassName("survey")[0].setAttribute('style', 'background-image: url( "./public/img/zonglan_hover.png");')
         videoPlay();
-        // 监听按钮点击事件
-        navs.forEach((nav) => {
-            nav.addEventListener("click", function () {
-                navs.forEach(x => x.removeAttribute("style"))
-                clickOnChange(nav, nav.className)
-            }
-            )
-        })
+
 
 
 
@@ -192,13 +196,13 @@ height: 100%;">
         const peopleUUid = ["ZM6Onckp5E+nTxoMmJgTXgEA"];
         const people_MarkInfo = [];
         let peoplePoints = [];
-        let vec0 = new Vector33D;
-        let vec1 = new Vector33D;
-        let vec2 = new Vector33D;
-        let vec3 = new Vector33D;
-        let vec4 = new Vector33D;
-        let vec5 = new Vector33D;
-        let vec6 = new Vector33D;
+        let vec0 = new spdengine.Vector33D;
+        let vec1 = new spdengine.Vector33D;
+        let vec2 = new spdengine.Vector33D;
+        let vec3 = new spdengine.Vector33D;
+        let vec4 = new spdengine.Vector33D;
+        let vec5 = new spdengine.Vector33D;
+        let vec6 = new spdengine.Vector33D;
         vec0.set(0, 0, 0);
         vec1.set(80, -35, 0);
         vec2.set(114.36, -30.36, 0);
@@ -221,7 +225,7 @@ height: 100%;">
 
         // 总览
         const uuidStyleForsurvey = [{  // 待改色的构件
-            uuid: "ZM6Onckp5E+nTxoMmJgTXgEA",
+            uuid: "sueBlkrZlEOaR277xN47nwEA",
             color: "#000000"
         }]
 
@@ -240,19 +244,28 @@ height: 100%;">
             useThreads: false,
             engineSrcPath: './public/spdengine/',
             envInitSuccessCB: function () {
-                Matrix43D = spdengine.Matrix43D;
-                Vector33D = spdengine.Vector33D;
+
                 spdengine.Scott.run(rightBench);
-                var api = Apis.getApi(rightBench);
-                var apiUI = api["UI"];
-                var api3d = api["3D"];
+                api = Apis.getApi(rightBench);
+                apiUI = api["UI"];
+                api3d = api["3D"];
+
                 apiUI.enableToolBars(false);
-                spdengine.Scott.load(rightBench, { url: "./public/demo/demoRenderFile/", workerUrl: "./public/spdengine/", orgModelId: 1, newModelId: 1, modelMatrix: new Matrix43D().setPosition(new Vector33D(0, 0, 0)) });
+                spdengine.Scott.load(rightBench, { url: "./public/demo/demoRenderFile/", workerUrl: "./public/spdengine/", orgModelId: 1, newModelId: 1, modelMatrix: new spdengine.Matrix43D().setPosition(new spdengine.Vector33D(0, 0, 0)) });
                 api3d.addEventListener("fileloader_geomallloadend", () => {
 
 
 
 
+                    // 监听按钮点击事件
+                    navs.forEach((nav) => {
+                        nav.addEventListener("click", function () {
+                            navs.forEach(x => x.removeAttribute("style"))
+                            clickOnChange(nav, nav.className)
+                        }
+                        )
+                    })
+                    console.log(api3d)
 
 
 
@@ -261,10 +274,8 @@ height: 100%;">
 
 
 
-
-
-
-
+                    _click()
+                    changeComColor(uuidStyleForsurvey)
 
 
                 });
@@ -297,52 +308,6 @@ height: 100%;">
             let videoListRight = document.getElementById("videoListRight");
             let index = 2;
             currentNav = type;
-            switch (type) {
-
-                // 一、清除模型原有标签并重新绘制
-
-                // 二、更换两侧图表背景
-
-                // 三、分类型执行动画
-
-                case 'survey':
-                    dom.setAttribute('style', 'background-image: url( "./public/img/zonglan_hover.png");')
-                    index = 2;
-                    changeComColor(uuidStyleForsurvey)
-                    break;
-                case 'qualisafety':
-                    dom.setAttribute('style', 'background-image: url( "./public/img/zhiliang_hover.png");')
-                    index = 3;
-                    renderModelDevice(Quality_MarkInfo)
-                    renderModelDevice(Savety_MarkInfo)
-
-                    break;
-                case 'env':
-                    dom.setAttribute('style', 'background-image: url( "./public/img/huanjing_hover.png");')
-                    index = 4;
-                    renderModelDevice(Savety_MarkInfo)
-                    break;
-                case 'people':
-                    dom.setAttribute('style', 'background-image: url( "./public/img/renyuan_hover.png");')
-                    index = 5;
-                    renderModelDevice(people_MarkInfo)
-                    break;
-                case 'video':
-                    dom.setAttribute('style', 'background-image: url( "./public/img/jiankong_hover.png");')
-                    index = 6;
-                    renderModelDevice(video_MarkInfo)
-                    break;
-                case 'device':
-                    dom.setAttribute('style', 'background-image: url( "./public/img/shebei_hover.png");')
-                    index = 7;
-                    renderModelDevice(Lifter_MarkInfo)
-                    renderModelDevice(Crane_MarkInfo)
-                    chanCraneAngleAnimate(CraneUUIDS[0])
-                    chanLifterAnimate(LifterUUIDS[0])
-                    break;
-                default:
-                    break;
-            }
             videoListLeft.removeAttribute("style")
             videoListRight.removeAttribute("style")
             left.removeAttribute('style');
@@ -373,13 +338,61 @@ height: 100%;">
                 // } else {
                 //     leftBottomVideo.removeAttribute('style');
                 // }
-
-
-
-
             }
             left.setAttribute('src', `./public/img/${index}-1.png`)
             right.setAttribute('src', `./public/img/${index}-2.png`)
+
+
+
+
+
+            switch (type) {
+
+                // 一、清除模型原有标签并重新绘制
+
+                // 二、更换两侧图表背景
+
+                // 三、分类型执行动画
+
+                case 'survey':
+                    dom.setAttribute('style', 'background-image: url( "./public/img/zonglan_hover.png");')
+                    index = 2;
+                    changeComColor(uuidStyleForsurvey)
+                    break;
+                case 'qualisafety':
+                    dom.setAttribute('style', 'background-image: url( "./public/img/zhiliang_hover.png");')
+                    index = 3;
+                    renderModelDevice(Quality_MarkInfo, index)
+                    // renderModelDevice(Savety_MarkInfo)
+
+                    break;
+                case 'env':
+                    dom.setAttribute('style', 'background-image: url( "./public/img/huanjing_hover.png");')
+                    index = 4;
+                    // renderModelDevice(Savety_MarkInfo)
+                    break;
+                case 'people':
+                    dom.setAttribute('style', 'background-image: url( "./public/img/renyuan_hover.png");')
+                    index = 5;
+                    // renderModelDevice(people_MarkInfo)
+                    break;
+                case 'video':
+                    dom.setAttribute('style', 'background-image: url( "./public/img/jiankong_hover.png");')
+                    index = 6;
+                    // renderModelDevice(video_MarkInfo)
+                    break;
+                case 'device':
+                    dom.setAttribute('style', 'background-image: url( "./public/img/shebei_hover.png");')
+                    index = 7;
+                    // renderModelDevice(Lifter_MarkInfo)
+                    // renderModelDevice(Crane_MarkInfo)
+                    // chanCraneAngleAnimate(CraneUUIDS[0])
+                    // chanLifterAnimate(LifterUUIDS[0])
+                    break;
+                default:
+                    break;
+            }
+
         }
 
         /**
@@ -389,11 +402,14 @@ height: 100%;">
 
         function changeComColor(uuidStyle) {
             if (!uuidStyle) return
+            console.log(api3d)
             api3d.backAllComponentColor();
             uuidStyle.forEach((item) => {
                 let timer = setTimeout(() => {
                     let color = item.color.replace('#', '');
                     api3d.changeComponentColor(spdengine.atob(item.uuid), '0x' + (color.length == 6 ? (color + '80') : color));
+                    api3d.clearHighlight(true);
+                    api3d.update();
                     clearTimeout(timer);
                 }, 0);
             });
@@ -401,7 +417,7 @@ height: 100%;">
 
 
         // 渲染模型标签
-        function renderModelDevice(markInfo) {
+        function renderModelDevice(markInfo, machineType) {
 
             if (!markInfo) return
             currentDeviceId.forEach((item) => {
@@ -460,9 +476,9 @@ height: 100%;">
                                 "<div class='name'  >" + element.name + "</div>" +
                                 "<div class='serialNo' style=' user-select: none;'>备案号：" + element.serialNo + "</div>" +
 
-                                "<div class='info_1' > <span class='angle'>转角：" + "-" + "</span> " + " <span class='height'>高度：" + "-" + "</span> " + "</div>" +
-                                "<div class='info_2' > <span class='percent'>力矩(%)：" + "-" + "</span> " + " <span class='load'>吊重：" + "-" + "</span> " + "</div>" +
-                                "<div class='uuid' style='height:0px;overflow:hidden' >" + element.uuid + "</div>" +
+                                // "<div class='info_1' > <span class='angle'>转角：" + "-" + "</span> " + " <span class='height'>高度：" + "-" + "</span> " + "</div>" +
+                                // "<div class='info_2' > <span class='percent'>力矩(%)：" + "-" + "</span> " + " <span class='load'>吊重：" + "-" + "</span> " + "</div>" +
+                                // "<div class='uuid' style='height:0px;overflow:hidden' >" + element.uuid + "</div>" +
 
 
                                 "</div>";
@@ -473,6 +489,14 @@ height: 100%;">
 
                                 "<div class='uuid' style='height:0px;overflow:hidden' >" + element.uuid + "</div>" +
                                 "</div>";
+                            break;
+                        default:
+                            html = "<div class='position'  id='" + element.serialNo + "'>" +
+                                "<div >" + element.name + "</div>" +
+
+                                "<div class='uuid' style='height:0px;overflow:hidden' >" + element.uuid + "</div>" +
+                                "</div>";
+
                             break;
 
                     }
@@ -610,6 +634,24 @@ height: 100%;">
                 player.setVolume(0);
             })
         }
+
+
+        function _click() {
+            console.log(api3d)
+            // 监听点击事件
+            // const tapi = spdengine.Apis.getApi(this.leftBench);
+            api3d.addSelectEventListener('click', async (result) => {
+                let UUIDS = api3d.getSelected();
+                let btoaUUIDS = [];
+                UUIDS.forEach((element) => {
+                    btoaUUIDS.push(spdengine.btoa(element));
+                });
+                console.log(btoaUUIDS);
+            });
+            api3d.removeSelectEventListener('click', () => { });
+        }
+
+
 // *********************************function end***********************************************
     </script>
 </body>

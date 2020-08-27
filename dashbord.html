@@ -88,22 +88,25 @@ height: 100%;">
 
 <body style="height:100%;width: 100%;margin: 0;">
     <script>
+        "use strict";
         var Apis = spdengine.Apis;
         const right = document.getElementById('cesiumContainer');
         var machineType = 1;                                                 //  1 升降机 2塔吊 3安全\质量 4人员定位 5环境 6监控
         var currentDeviceId = [];                                             // 当前需渲染的标签id 集合
         var currentNav = "survey";
 
+
         // 升降机变量
         const LifterUUIDS = [];
+        const Lifter_MarkInfo = []
 
         // 塔吊变量
         const CraneUUIDS = [];
-        Crane_MarkInfo = [];
+        const Crane_MarkInfo = [];
 
         // 安全
         const SavetyUUIDS = [];
-        Savety_MarkInfo = [                                                  // 调用标签绘制时传入变量 {} 为一个标签
+        const Savety_MarkInfo = [                                                  // 调用标签绘制时传入变量 {} 为一个标签
             {
                 subLineLength: 0,
                 uuid: "ZM6Onckp5E+nTxoMmJgTXgEA",                                // 对应上面uuids集合内容
@@ -114,11 +117,11 @@ height: 100%;">
 
         // 质量
         const qualityUUIDS = [];
-        Quality_MarkInfo = [];
+        const Quality_MarkInfo = [];
 
         // 环境
         const envUUIDS = [];
-        Env_MarkInfo = [];
+        const Env_MarkInfo = [];
 
 
         const navs = document.querySelectorAll(".navDevicenNav div");
@@ -138,6 +141,7 @@ height: 100%;">
 
         // 人员定位相关变量
         const peopleUUid = ["ZM6Onckp5E+nTxoMmJgTXgEA"];
+        const people_MarkInfo = [];
         let peoplePoints = [];
         let vec0 = new Vector33D;
         let vec1 = new Vector33D;
@@ -163,10 +167,11 @@ height: 100%;">
 
         // 监控
         const videoUUIDS = [];
+        const video_MarkInfo = []
         const playUrl = [];
 
         // 总览
-        const uuidStyleForsurvey = [{
+        const uuidStyleForsurvey = [{  // 待改色的构件
             uuid: "ZM6Onckp5E+nTxoMmJgTXgEA",
             color: "#000000"
         }]
@@ -243,29 +248,47 @@ height: 100%;">
             let videoListRight = document.getElementById("videoListRight");
             let index = 2;
             switch (type) {
+
+                // 一、清除模型原有标签并重新绘制
+
+                // 二、更换两侧图表背景
+
+                // 三、分类型执行动画
+
                 case 'survey':
                     dom.setAttribute('style', 'background-image: url( "./public/img/zonglan_hover.png");')
                     index = 2;
+                    changeComColor(uuidStyleForsurvey)
                     break;
                 case 'qualisafety':
                     dom.setAttribute('style', 'background-image: url( "./public/img/zhiliang_hover.png");')
                     index = 3;
+                    renderModelDevice(Quality_MarkInfo)
+                    renderModelDevice(Savety_MarkInfo)
+
                     break;
                 case 'env':
                     dom.setAttribute('style', 'background-image: url( "./public/img/huanjing_hover.png");')
                     index = 4;
+                    renderModelDevice(Savety_MarkInfo)
                     break;
                 case 'people':
                     dom.setAttribute('style', 'background-image: url( "./public/img/renyuan_hover.png");')
                     index = 5;
+                    renderModelDevice(people_MarkInfo)
                     break;
                 case 'video':
                     dom.setAttribute('style', 'background-image: url( "./public/img/jiankong_hover.png");')
                     index = 6;
+                    renderModelDevice(video_MarkInfo)
                     break;
                 case 'device':
                     dom.setAttribute('style', 'background-image: url( "./public/img/shebei_hover.png");')
                     index = 7;
+                    renderModelDevice(Lifter_MarkInfo)
+                    renderModelDevice(Crane_MarkInfo)
+                    chanCraneAngleAnimate(CraneUUIDS[0])
+                    chanLifterAnimate(LifterUUIDS[0])
                     break;
                 default:
                     break;
@@ -302,11 +325,7 @@ height: 100%;">
                 // }
 
 
-                // 一、清除模型原有标签并重新绘制
 
-                // 二、更换两侧图表背景
-
-                // 三、分类型执行动画
 
             }
             left.setAttribute('src', `./public/img/${index}-1.png`)
@@ -421,51 +440,55 @@ height: 100%;">
         }
 
 
-        // 改变标签内容及动画
-        function changeDeviceInfoBySignalR(message, machineType) {
+        // // 改变标签内容及动画
+        // function changeDeviceInfoBySignalR(message, machineType) {
 
-            let detilaMsg = message.data;
-            let dom = document.getElementById(detilaMsg.serialNo);
-            if (dom) {
-                // 升降机标签及动画
-                if (machineType == 1) {
-                    let uuid = dom.getElementsByClassName('uuid1')[0].textContent;
-                    // console.log(spdengine.btoa(uuid))
-                    dom.setAttribute('style', `background-color:${this.signalrService.setDeviceColorForStatus(detilaMsg.status)};backdrop-filter: blur(2px);color: rgba(255,255,255,0.8);`);
-                    dom.getElementsByClassName('stopHeight')[0].innerHTML = `运行高度: ${detilaMsg.stopHeight} M  `;
-                    dom.getElementsByClassName('speed')[0].innerHTML = `速度: ${detilaMsg.speed} m/s  `;
-                    dom.getElementsByClassName('load1')[0].innerHTML = `载重: ${detilaMsg.load} kg  `;
+        //     let detilaMsg = message.data;
+        //     let dom = document.getElementById(detilaMsg.serialNo);
+        //     if (dom) {
+        //         // 升降机标签及动画
+        //         if (machineType == 1) {
+        //             let uuid = dom.getElementsByClassName('uuid1')[0].textContent;
+        //             // console.log(spdengine.btoa(uuid))
+        //             dom.setAttribute('style', `background-color:${this.signalrService.setDeviceColorForStatus(detilaMsg.status)};backdrop-filter: blur(2px);color: rgba(255,255,255,0.8);`);
+        //             dom.getElementsByClassName('stopHeight')[0].innerHTML = `运行高度: ${detilaMsg.stopHeight} M  `;
+        //             dom.getElementsByClassName('speed')[0].innerHTML = `速度: ${detilaMsg.speed} m/s  `;
+        //             dom.getElementsByClassName('load1')[0].innerHTML = `载重: ${detilaMsg.load} kg  `;
 
-                    if (uuid) {
-                        console.log(uuid);
-                        this.chanLifterAnimate(detilaMsg, uuid);
-                    }
-                }
-                // 塔吊标签及动画
-                if (machineType == 2) {
-                    let uuid = dom.getElementsByClassName('uuid')[0].textContent;
-                    dom.setAttribute('style', `background-color:${this.signalrService.setDeviceColorForStatus(detilaMsg.status)};backdrop-filter: blur(2px);color: rgba(255,255,255,0.8);`);
-                    dom.getElementsByClassName('angle')[0].innerHTML = `转角: ${detilaMsg.angle}°`;
-                    dom.getElementsByClassName('height')[0].innerHTML = `高度: ${detilaMsg.height}M`;
-                    dom.getElementsByClassName('percent')[0].innerHTML = `力矩: ${detilaMsg.percent}%`;
-                    dom.getElementsByClassName('load')[0].innerHTML = `吊重: ${detilaMsg.load}吨`;
-                    if (uuid) {
-                        this.chanCraneAngleAnimate(detilaMsg, uuid);
-                    }
-                }
+        //             if (uuid) {
+        //                 console.log(uuid);
+        //                 this.chanLifterAnimate(detilaMsg, uuid);
+        //             }
+        //         }
+        //         // 塔吊标签及动画
+        //         if (machineType == 2) {
+        //             let uuid = dom.getElementsByClassName('uuid')[0].textContent;
+        //             dom.setAttribute('style', `background-color:${this.signalrService.setDeviceColorForStatus(detilaMsg.status)};backdrop-filter: blur(2px);color: rgba(255,255,255,0.8);`);
+        //             dom.getElementsByClassName('angle')[0].innerHTML = `转角: ${detilaMsg.angle}°`;
+        //             dom.getElementsByClassName('height')[0].innerHTML = `高度: ${detilaMsg.height}M`;
+        //             dom.getElementsByClassName('percent')[0].innerHTML = `力矩: ${detilaMsg.percent}%`;
+        //             dom.getElementsByClassName('load')[0].innerHTML = `吊重: ${detilaMsg.load}吨`;
+        //             if (uuid) {
+        //                 this.chanCraneAngleAnimate(detilaMsg, uuid);
+        //             }
+        //         }
 
 
-            }
-        }
+        //     }
+        // }
 
         /**
         * @description 塔吊旋转动画
         * @param message 来自ws的塔吊信息
         * @param uuid 
         */
-        function chanCraneAngleAnimate(message, uuid) {
+        function chanCraneAngleAnimate(uuid) {
             let cranes = [];
-            cranes.push(spdengine.atob("8qNNMbJqn0OKpzZwaV7WmAEA"))
+            cranes.push(spdengine.atob(uuid))
+            let hangings = [];
+            hangings.push(spdengine.atob("8qNNMbJqn0OKpzZwaV7X2AEA"));
+            let poles = [];
+            poles.push(spdengine.atob("8qNNMbJqn0OKpzZwaV7VdAEA"));
             let tc = new TowerCrane(cranes, poles, hangings, api3d);
             api.PARAMS.ani_enable = true;
             tc.setTCAnimate(Math.PI * 2, 8.0, 0, 0);
@@ -477,10 +500,10 @@ height: 100%;">
         * @param message 来自ws的塔吊信息
         * @param uuid 
         */
-        function chanLifterAnimate(message, uuid) {
+        function chanLifterAnimate(uuid) {
 
-            let startHeight = message.startHeight;
-            let stopHeight = message.stopHeight;
+            let startHeight = startHeight;
+            let stopHeight = stopHeight;
 
             let timer = setTimeout(() => {
                 let flashs = [];

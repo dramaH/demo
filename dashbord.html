@@ -126,23 +126,23 @@ height: 100%;">
 
 
         // 升降机变量
-        const LifterUUIDS = [];
+        const LifterUUIDS = ["qb1dt2PRfUGPuijzC3Q5mwEA"];
         const Lifter_MarkInfo = [
             {
                 subLineLength: 5,
-                uuid: "uh2ZWLUDs0KWzUmNSu0yBwEA",
-                deviceId: "uh2ZWLUDs0KWzUmNSu0yBwEA",
+                uuid: "qb1dt2PRfUGPuijzC3Q5mwEA",
+                deviceId: "qb1dt2PRfUGPuijzC3Q5mwEA",
                 isPointStyle: true,
             }
         ]
 
         // 塔吊变量
-        const CraneUUIDS = [{ top: "uh2ZWLUDs0KWzUmNSu0yBwEA", bottom: "uh2ZWLUDs0KWzUmNSu0mkgEA" }];
+        const CraneUUIDS = [{ top: "qb1dt2PRfUGPuijzC3Q5nQEA", bottom: "qb1dt2PRfUGPuijzC3Q5nAEA" }];
         const Crane_MarkInfo = [
             {
                 subLineLength: 5,
-                uuid: "uh2ZWLUDs0KWzUmNSu0yBwEA",                                // 对应上面uuids集合内容
-                deviceId: "uh2ZWLUDs0KWzUmNSu0yBwEA",                                             // 标签ID
+                uuid: "qb1dt2PRfUGPuijzC3Q5nQEA",                                // 对应上面uuids集合内容
+                deviceId: "qb1dt2PRfUGPuijzC3Q5nQEA",                                             // 标签ID
                 isPointStyle: true,                                          // 是否已点的形式展示
             }
         ];
@@ -159,28 +159,7 @@ height: 100%;">
         ];
 
         // 视频播放列表
-        const videoList = [{
-            key: 'surveyVideo',
-            playUrl: 'http://spdci.dev.spdio.com/dashboard/public/img/videodemo.mp4'
-        }, {
-            key: 'videoContainer1',
-            playUrl: 'https://hls01open.ys7.com/openlive/ba6fef136e0d41789f44660f11cab442.m3u8'
-        }, {
-            key: 'videoContainer2',
-            playUrl: 'https://hls01open.ys7.com/openlive/57c338bed5224a27af0f14268aed6c8e.m3u8'
-        }, {
-            key: 'videoContainer3',
-            playUrl: 'https://hls01open.ys7.com/openlive/2d954e421b4c4d6b884faf383f54409a.m3u8'
-        }, {
-            key: 'videoContainer4',
-            playUrl: 'https://hls01open.ys7.com/openlive/b9c2e579e7ba4ad19edcca638b9d92e2.m3u8'
-        }, {
-            key: 'videoContainer5',
-            playUrl: 'https://hls01open.ys7.com/openlive/8924adfa80364bae98aaeecab002e7cd.m3u8'
-        }, {
-            key: 'videoContainer6',
-            playUrl: 'https://hls01open.ys7.com/openlive/5ea01493f9364ed59f17cdea11cffe5b.m3u8'
-        }]
+
 
         // 质量
         const qualityUUIDS = ["GZb6eIMpc0uZdSH0mIAoswEA", "/A6CZsNjU0WI5a6aJUjPYAEA"];
@@ -229,6 +208,13 @@ height: 100%;">
             }
         ];
 
+
+
+
+
+
+        // 环境
+        const envUUIDS = [];
         const Env_MarkInfo = [
             {
                 subLineLength: 0,
@@ -275,61 +261,10 @@ height: 100%;">
         ];
 
 
-        const Video_MarkInfo = [
-            {
-                subLineLength: 0,
-                uuid: "FAtMXcpov06OFWDvH0EZfgEA",
-                deviceId: "FAtMXcpov06OFWDvH0EZfgEA",
-                isPointStyle: true,
-                level: 'video',
-                name:'视频1'
-            },
-            {
-                subLineLength: 0,
-                uuid: "FAtMXcpov06OFWDvH0EcEQEA",
-                deviceId: "FAtMXcpov06OFWDvH0EcEQEA",
-                isPointStyle: true,
-                level: 'video',
-                name:'视频2'
-            },
-            {
-                subLineLength: 0,
-                uuid: "FAtMXcpov06OFWDvH0Ed6AEA",
-                deviceId: "FAtMXcpov06OFWDvH0Ed6AEA",
-                isPointStyle: true,
-                level: 'video',
-                name:'视频3'
-            },
-            {
-                subLineLength: 0,
-                uuid: "FAtMXcpov06OFWDvH0Ee9AEA",
-                deviceId: "FAtMXcpov06OFWDvH0Ee9AEA",
-                isPointStyle: true,
-                level: 'video',
-                name:'视频4'
-            },
-            {
-                subLineLength: 0,
-                uuid: "FAtMXcpov06OFWDvH0EeYgEA",
-                deviceId: "FAtMXcpov06OFWDvH0EeYgEA",
-                isPointStyle: true,
-                level: 'video',
-                name:'视频5'
-            },
-            {
-                subLineLength: 0,
-                uuid: "FAtMXcpov06OFWDvH0Ee+wEA",
-                deviceId: "FAtMXcpov06OFWDvH0Ee+wEA",
-                isPointStyle: true,
-                level: 'video',
-                name:'视频6'
-            }
-        ];
-
-        // 环境
-        const envUUIDS = [];
 
 
+
+        // nav变量
         const navs = document.querySelectorAll(".navDevicenNav div");
         document.getElementsByClassName("survey")[0].setAttribute('style', 'background-image: url( "./public/img/zonglan_hover.png");')
         videoPlay();
@@ -339,40 +274,101 @@ height: 100%;">
 
 
         // 人员定位相关变量
-        const peopleUUid = ["ZM6Onckp5E+nTxoMmJgTXgEA"];
+        const peopleUUid = [
+            {
+                uuid: "ZM6Onckp5E+nTxoMmJgTXgEA",
+                points: []
+            }
+        ];
         const people_MarkInfo = [];
         let peoplePoints = [];
-        let vec0 = new spdengine.Vector33D;
-        let vec1 = new spdengine.Vector33D;
-        let vec2 = new spdengine.Vector33D;
-        let vec3 = new spdengine.Vector33D;
-        let vec4 = new spdengine.Vector33D;
-        let vec5 = new spdengine.Vector33D;
-        let vec6 = new spdengine.Vector33D;
-        vec0.set(0, 0, 0);
-        vec1.set(80, -35, 0);
-        vec2.set(114.36, -30.36, 0);
-        vec3.set(145.84, -16.86, 0);
-        vec4.set(168.97, 3.27, 0);
-        vec5.set(186.92, 28.63, 0);
-        vec6.set(195.92, 56.63, 0);
-        peoplePoints.push(vec0);
-        peoplePoints.push(vec1);
-        peoplePoints.push(vec2);
-        peoplePoints.push(vec3);
-        peoplePoints.push(vec4);
-        peoplePoints.push(vec5);
-        peoplePoints.push(vec6);
+
 
         // 监控
         const videoUUIDS = [];
-        const video_MarkInfo = []
         const playUrl = [];
+        const videoList = [{
+            key: 'surveyVideo',
+            playUrl: 'http://spdci.dev.spdio.com/dashboard/public/img/videodemo.mp4'
+        }, {
+            key: 'videoContainer1',
+            playUrl: 'https://hls01open.ys7.com/openlive/ba6fef136e0d41789f44660f11cab442.m3u8'
+        }, {
+            key: 'videoContainer2',
+            playUrl: 'https://hls01open.ys7.com/openlive/57c338bed5224a27af0f14268aed6c8e.m3u8'
+        }, {
+            key: 'videoContainer3',
+            playUrl: 'https://hls01open.ys7.com/openlive/2d954e421b4c4d6b884faf383f54409a.m3u8'
+        }, {
+            key: 'videoContainer4',
+            playUrl: 'https://hls01open.ys7.com/openlive/b9c2e579e7ba4ad19edcca638b9d92e2.m3u8'
+        }, {
+            key: 'videoContainer5',
+            playUrl: 'https://hls01open.ys7.com/openlive/8924adfa80364bae98aaeecab002e7cd.m3u8'
+        }, {
+            key: 'videoContainer6',
+            playUrl: 'https://hls01open.ys7.com/openlive/5ea01493f9364ed59f17cdea11cffe5b.m3u8'
+        }]
+        const Video_MarkInfo = [
+            {
+                subLineLength: 0,
+                uuid: "FAtMXcpov06OFWDvH0EZfgEA",
+                deviceId: "FAtMXcpov06OFWDvH0EZfgEA",
+                isPointStyle: true,
+                level: 'video',
+                name: '视频1'
+            },
+            {
+                subLineLength: 0,
+                uuid: "FAtMXcpov06OFWDvH0EcEQEA",
+                deviceId: "FAtMXcpov06OFWDvH0EcEQEA",
+                isPointStyle: true,
+                level: 'video',
+                name: '视频2'
+            },
+            {
+                subLineLength: 0,
+                uuid: "FAtMXcpov06OFWDvH0Ed6AEA",
+                deviceId: "FAtMXcpov06OFWDvH0Ed6AEA",
+                isPointStyle: true,
+                level: 'video',
+                name: '视频3'
+            },
+            {
+                subLineLength: 0,
+                uuid: "FAtMXcpov06OFWDvH0Ee9AEA",
+                deviceId: "FAtMXcpov06OFWDvH0Ee9AEA",
+                isPointStyle: true,
+                level: 'video',
+                name: '视频4'
+            },
+            {
+                subLineLength: 0,
+                uuid: "FAtMXcpov06OFWDvH0EeYgEA",
+                deviceId: "FAtMXcpov06OFWDvH0EeYgEA",
+                isPointStyle: true,
+                level: 'video',
+                name: '视频5'
+            },
+            {
+                subLineLength: 0,
+                uuid: "FAtMXcpov06OFWDvH0Ee+wEA",
+                deviceId: "FAtMXcpov06OFWDvH0Ee+wEA",
+                isPointStyle: true,
+                level: 'video',
+                name: '视频6'
+            }
+        ];
+
 
         // 总览
         const uuidStyleForsurvey = [{  // 待改色的构件
-            uuid: "sueBlkrZlEOaR277xN47nwEA",
-            color: "#000000"
+            uuid: "FAtMXcpov06OFWDvH0Ee+wEA",
+            color: "#01cc07ff"
+        },
+        {
+            uuid: "FAtMXcpov06OFWDvH0Ee+gEA",
+            color: "#f01111ff"
         }]
 
 
@@ -411,11 +407,6 @@ height: 100%;">
                         }
                         )
                     })
-                    console.log(api3d)
-
-
-
-
 
 
 
@@ -538,6 +529,7 @@ height: 100%;">
             }
             if (index == 5) {
                 renderModelDevice(people_MarkInfo, 4)
+                animateForpeople()
             }
             if (index == 6) {
                 renderModelDevice(video_MarkInfo, 5)
@@ -741,10 +733,46 @@ height: 100%;">
         * @param points: Array<any> 单个构件路径点集合
         * @param uuid 
         */
-        function animateForpeople(points, api3d) {
-            let route = new Route(points, api3d);
-            api.PARAMS.ani_enable = true;
-            route.setRouteAnimation(spdengine.atob(peopleUUid), 6.0, 0, 0);
+        function animateForpeople(items, api3d) {
+
+            items.forEach((item) => {
+                let uuid = item.uuid;
+                let points = [];
+
+                item.points.forEach((res, index) => {
+                    let vec = new spdengine.Vector33D
+                    vec.set(...res)
+                    points.push(vec)
+
+                })
+                let route = new Route(points, api3d);
+                api.PARAMS.ani_enable = true;
+                route.setRouteAnimation(spdengine.atob(uuid), 6.0, 0, new Date().valueOf());
+                // let vec0 = new Vector33D;
+                // let vec1 = new Vector33D;
+                // let vec2 = new Vector33D;
+                // let vec3 = new Vector33D;
+                // let vec4 = new Vector33D;
+                // let vec5 = new Vector33D;
+                // let vec6 = new Vector33D;
+                // vec0.set(0, 0, 0);
+                // vec1.set(80, -35, 0);
+                // vec2.set(114.36, -30.36, 0);
+                // vec3.set(145.84, -16.86, 0);
+                // vec4.set(168.97, 3.27, 0);
+                // vec5.set(186.92, 28.63, 0);
+                // vec6.set(195.92, 56.63, 0);
+                // points.push(vec0);
+                // points.push(vec1);
+                // points.push(vec2);
+                // points.push(vec3);
+                // points.push(vec4);
+                // points.push(vec5);
+                // points.push(vec6);
+
+
+            })
+
             api.PARAMS.ani_run = true;
         }
 
@@ -814,9 +842,6 @@ height: 100%;">
 
 
         function _click() {
-            console.log(api3d)
-            // 监听点击事件
-
             api3d.addSelectEventListener('click', async (result) => {
                 let UUIDS = api3d.getSelected();
                 let btoaUUIDS = [];
@@ -824,6 +849,9 @@ height: 100%;">
                     btoaUUIDS.push(spdengine.btoa(element));
                 });
                 console.log(btoaUUIDS);
+                getCenter1(btoaUUIDS).then((res) => {
+                    console.log(res[0].center)
+                })
             });
             api3d.removeSelectEventListener('click', () => { });
         }

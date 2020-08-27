@@ -82,7 +82,7 @@
     margin: 20px auto 0;
 }
 
-.container .leftBottomVideo #surveyVideo{
+.container .leftBottomVideo #surveyVideo video{
     object-fit: fill;
 }
 

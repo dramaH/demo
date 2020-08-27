@@ -139,7 +139,7 @@ height: 100%;">
             {
                 subLineLength: 0,
                 uuid: "ZM6Onckp5E+nTxoMmJgTXgEA",                                // 对应上面uuids集合内容
-                deviceId: this.uuid,                                             // 标签ID
+                deviceId: "ZM6Onckp5E+nTxoMmJgTXgEA",                                             // 标签ID
                 isPointStyle: true,                                          // 是否已点的形式展示
             }
         ];
@@ -174,7 +174,7 @@ height: 100%;">
             {
                 subLineLength: 0,
                 uuid: "GZb6eIMpc0uZdSH0mIAoswEA",
-                deviceId: this.uuid,
+                deviceId: "GZb6eIMpc0uZdSH0mIAoswEA",
                 isPointStyle: true,
             }
         ];
@@ -423,6 +423,7 @@ height: 100%;">
         function renderModelDevice(markInfo, machineType) {
 
             if (!markInfo) return
+            Iapi.PARAMS.mk_hiddenAllMarker = true;
             currentDeviceId.forEach((item) => {
                 api3d.removeMarkerDeviceInfo(item);
             });
@@ -516,42 +517,6 @@ height: 100%;">
         }
 
 
-        // // 改变标签内容及动画
-        // function changeDeviceInfoBySignalR(message, machineType) {
-
-        //     let detilaMsg = message.data;
-        //     let dom = document.getElementById(detilaMsg.serialNo);
-        //     if (dom) {
-        //         // 升降机标签及动画
-        //         if (machineType == 1) {
-        //             let uuid = dom.getElementsByClassName('uuid1')[0].textContent;
-        //             // console.log(spdengine.btoa(uuid))
-        //             dom.setAttribute('style', `background-color:${this.signalrService.setDeviceColorForStatus(detilaMsg.status)};backdrop-filter: blur(2px);color: rgba(255,255,255,0.8);`);
-        //             dom.getElementsByClassName('stopHeight')[0].innerHTML = `运行高度: ${detilaMsg.stopHeight} M  `;
-        //             dom.getElementsByClassName('speed')[0].innerHTML = `速度: ${detilaMsg.speed} m/s  `;
-        //             dom.getElementsByClassName('load1')[0].innerHTML = `载重: ${detilaMsg.load} kg  `;
-
-        //             if (uuid) {
-        //                 console.log(uuid);
-        //                 this.chanLifterAnimate(detilaMsg, uuid);
-        //             }
-        //         }
-        //         // 塔吊标签及动画
-        //         if (machineType == 2) {
-        //             let uuid = dom.getElementsByClassName('uuid')[0].textContent;
-        //             dom.setAttribute('style', `background-color:${this.signalrService.setDeviceColorForStatus(detilaMsg.status)};backdrop-filter: blur(2px);color: rgba(255,255,255,0.8);`);
-        //             dom.getElementsByClassName('angle')[0].innerHTML = `转角: ${detilaMsg.angle}°`;
-        //             dom.getElementsByClassName('height')[0].innerHTML = `高度: ${detilaMsg.height}M`;
-        //             dom.getElementsByClassName('percent')[0].innerHTML = `力矩: ${detilaMsg.percent}%`;
-        //             dom.getElementsByClassName('load')[0].innerHTML = `吊重: ${detilaMsg.load}吨`;
-        //             if (uuid) {
-        //                 this.chanCraneAngleAnimate(detilaMsg, uuid);
-        //             }
-        //         }
-
-
-        //     }
-        // }
 
         /**
         * @description 塔吊旋转动画
@@ -559,16 +524,51 @@ height: 100%;">
         * @param uuid 
         */
         function chanCraneAngleAnimate(uuid) {
-            let cranes = [];
-            cranes.push(spdengine.atob(uuid))
-            let hangings = [];
-            hangings.push(spdengine.atob("8qNNMbJqn0OKpzZwaV7X2AEA"));
-            let poles = [];
-            poles.push(spdengine.atob("8qNNMbJqn0OKpzZwaV7VdAEA"));
-            let tc = new TowerCrane(cranes, poles, hangings, api3d);
+            // let cranes = [];
+            // cranes.push(spdengine.atob(uuid))
+            // let hangings = [];
+            // hangings.push(spdengine.atob("8qNNMbJqn0OKpzZwaV7X2AEA"));
+            // let poles = [];
+            // poles.push(spdengine.atob("8qNNMbJqn0OKpzZwaV7VdAEA"));
+            // let tc = new TowerCrane(cranes, poles, hangings, api3d);
+            // api.PARAMS.ani_enable = true;
+            // tc.setTCAnimate(Math.PI * 2, 8.0, 0, 0);
+            // api.PARAMS.ani_run = true;
+
+
+
+            let center = []
+
+
+
+            let _value = [];
+            _value.push(0);
+            _value.push(0);
+            _value.push(45 * (Math.PI / 180));
+            _value.push(2);
+            _value.push(center.x);
+            _value.push(center.y);
+            _value.push(center.z);
+            let flash = { guid: uuid, aniType: 0, transType: 1, value: _value, totalTime: flag ? 1 : 13, sort: 0, chunkid: new Date().valueOf() };
+            flashs.push(flash);
             api.PARAMS.ani_enable = true;
-            tc.setTCAnimate(Math.PI * 2, 8.0, 0, 0);
+            api3d.setAnimateData(flashs);
             api.PARAMS.ani_run = true;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
 
         /**
@@ -590,9 +590,9 @@ height: 100%;">
                 let flash = { guid: uuid, aniType: 0, transType: 0, value: _value, totalTime: 10, sort: 0, chunkid: new Date().valueOf() };
                 console.log(flash);
                 flashs.push(flash);
-                this.Iapi.PARAMS.ani_enable = true;
-                this.tapi.setAnimateData(flashs);
-                this.Iapi.PARAMS.ani_run = true;
+                api.PARAMS.ani_enable = true;
+                api3d.setAnimateData(flashs);
+                api.PARAMS.ani_run = true;
                 // this.tapi.enableMarkerRefresh(); // 刷新标签
                 window.clearTimeout(timer);
             }, 600);
@@ -612,6 +612,44 @@ height: 100%;">
             route.setRouteAnimation(spdengine.atob(peopleUUid), 6.0, 0, 0);
             api.PARAMS.ani_run = true;
         }
+
+
+
+
+        /**
+        * @description 获取并记录当前构件的中心点
+         */
+        async function getCenter(uuid) {
+
+            let center, size, uuidBoxs;
+            let box = new spdengine.Box33D;
+            await api3d.getComponentBoundingBox(uuid, box);
+            center = box.getCenter();
+            size = box.getSize();
+            return uuidBoxs.push(
+                {
+                    uuid,
+                    center,
+                    size
+                }
+            );
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         /**
@@ -642,7 +680,7 @@ height: 100%;">
         function _click() {
             console.log(api3d)
             // 监听点击事件
-            // const tapi = spdengine.Apis.getApi(this.leftBench);
+
             api3d.addSelectEventListener('click', async (result) => {
                 let UUIDS = api3d.getSelected();
                 let btoaUUIDS = [];

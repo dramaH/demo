@@ -82,6 +82,10 @@
     margin: 20px auto 0;
 }
 
+.container .leftBottomVideo #surveyVideo{
+    object-fit: fill;
+}
+
 .navDevicenNav .survey {
     background-image: url("../img/zonglan_nor.png");
 }

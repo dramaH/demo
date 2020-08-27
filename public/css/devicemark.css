@@ -38,7 +38,7 @@
     display: none;
 }
 
-.container .videoList > div {
+.container .videoList>div {
     width: 380px;
     height: 250px;
     background-color: #2e2e2e99;
@@ -90,12 +90,14 @@
     height: 42px;
     background-repeat: no-repeat;
 }
+
 #safe2 {
     background-image: url("../img/组件\ 25\ –\ 9.png");
     width: 35px;
     height: 42px;
     background-repeat: no-repeat;
 }
+
 #safe3 {
     background-image: url("../img/组件\ 25\ –\ 14.png");
     width: 35px;
@@ -131,6 +133,18 @@
     background-repeat: no-repeat;
 }
 
+#tadiao {
+    min-width: 130px;
+    background-color: rgba(14, 0, 0, 0.384);
+    color: rgba(255, 255, 255, 0.6);
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 12px;
+    backdrop-filter: blur(3px);
+    cursor: pointer;
+}
+
+
 .container .leftBottomVideo #surveyVideo video {
     object-fit: fill;
 }
@@ -138,6 +152,7 @@
 .navDevicenNav .survey {
     background-image: url("../img/zonglan_nor.png");
 }
+
 .navDevicenNav .survey:hover {
     background-image: url("../img/zonglan_hover.png");
 }
@@ -145,6 +160,7 @@
 .navDevicenNav .qualisafety {
     background-image: url("../img/zhiliang_nor.png");
 }
+
 .navDevicenNav .qualisafety:hover {
     background-image: url("../img/zhiliang_hover.png");
 }
@@ -152,6 +168,7 @@
 .navDevicenNav .env {
     background-image: url("../img/huanjing_nor.png");
 }
+
 .navDevicenNav .env:hover {
     background-image: url("../img/huanjing_hover.png");
 }
@@ -159,6 +176,7 @@
 .navDevicenNav .people {
     background-image: url("../img/renyuan_nor.png");
 }
+
 .navDevicenNav .people:hover {
     background-image: url("../img/renyuan_hover.png");
 }
@@ -166,6 +184,7 @@
 .navDevicenNav .video {
     background-image: url("../img/jiankong_nor.png");
 }
+
 .navDevicenNav .video:hover {
     background-image: url("../img/jiankong_hover.png");
 }

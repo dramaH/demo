@@ -308,6 +308,52 @@ height: 100%;">
             let videoListRight = document.getElementById("videoListRight");
             let index = 2;
             currentNav = type;
+
+
+            switch (type) {
+
+                // 一、清除模型原有标签并重新绘制
+
+                // 二、更换两侧图表背景
+
+                // 三、分类型执行动画
+
+                case 'survey':
+                    dom.setAttribute('style', 'background-image: url( "./public/img/zonglan_hover.png");')
+                    index = 2;
+                    break;
+                case 'qualisafety':
+                    dom.setAttribute('style', 'background-image: url( "./public/img/zhiliang_hover.png");')
+                    index = 3;
+                    // renderModelDevice(Savety_MarkInfo)
+                    break;
+                case 'env':
+                    dom.setAttribute('style', 'background-image: url( "./public/img/huanjing_hover.png");')
+                    index = 4;
+                    // renderModelDevice(Savety_MarkInfo)
+                    break;
+                case 'people':
+                    dom.setAttribute('style', 'background-image: url( "./public/img/renyuan_hover.png");')
+                    index = 5;
+                    // renderModelDevice(people_MarkInfo)
+                    break;
+                case 'video':
+                    dom.setAttribute('style', 'background-image: url( "./public/img/jiankong_hover.png");')
+                    index = 6;
+                    // renderModelDevice(video_MarkInfo)
+                    break;
+                case 'device':
+                    dom.setAttribute('style', 'background-image: url( "./public/img/shebei_hover.png");')
+                    index = 7;
+                    // renderModelDevice(Lifter_MarkInfo)
+                    // renderModelDevice(Crane_MarkInfo)
+                    // chanCraneAngleAnimate(CraneUUIDS[0])
+                    // chanLifterAnimate(LifterUUIDS[0])
+                    break;
+                default:
+                    break;
+            }
+
             videoListLeft.removeAttribute("style")
             videoListRight.removeAttribute("style")
             left.removeAttribute('style');
@@ -342,56 +388,13 @@ height: 100%;">
             left.setAttribute('src', `./public/img/${index}-1.png`)
             right.setAttribute('src', `./public/img/${index}-2.png`)
 
-
-
-
-
-            switch (type) {
-
-                // 一、清除模型原有标签并重新绘制
-
-                // 二、更换两侧图表背景
-
-                // 三、分类型执行动画
-
-                case 'survey':
-                    dom.setAttribute('style', 'background-image: url( "./public/img/zonglan_hover.png");')
-                    index = 2;
-                    changeComColor(uuidStyleForsurvey)
-                    break;
-                case 'qualisafety':
-                    dom.setAttribute('style', 'background-image: url( "./public/img/zhiliang_hover.png");')
-                    index = 3;
-                    renderModelDevice(Quality_MarkInfo, index)
-                    // renderModelDevice(Savety_MarkInfo)
-
-                    break;
-                case 'env':
-                    dom.setAttribute('style', 'background-image: url( "./public/img/huanjing_hover.png");')
-                    index = 4;
-                    // renderModelDevice(Savety_MarkInfo)
-                    break;
-                case 'people':
-                    dom.setAttribute('style', 'background-image: url( "./public/img/renyuan_hover.png");')
-                    index = 5;
-                    // renderModelDevice(people_MarkInfo)
-                    break;
-                case 'video':
-                    dom.setAttribute('style', 'background-image: url( "./public/img/jiankong_hover.png");')
-                    index = 6;
-                    // renderModelDevice(video_MarkInfo)
-                    break;
-                case 'device':
-                    dom.setAttribute('style', 'background-image: url( "./public/img/shebei_hover.png");')
-                    index = 7;
-                    // renderModelDevice(Lifter_MarkInfo)
-                    // renderModelDevice(Crane_MarkInfo)
-                    // chanCraneAngleAnimate(CraneUUIDS[0])
-                    // chanLifterAnimate(LifterUUIDS[0])
-                    break;
-                default:
-                    break;
+            if (index == 2) {
+                changeComColor(uuidStyleForsurvey)
             }
+            if (index == 3) {
+                renderModelDevice(Quality_MarkInfo, index)
+            }
+
 
         }
 

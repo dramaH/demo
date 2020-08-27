@@ -458,30 +458,22 @@ height: 100%;">
                 case 'qualisafety':
                     dom.setAttribute('style', 'background-image: url( "./public/img/zhiliang_hover.png");')
                     index = 3;
-                    // renderModelDevice(Savety_MarkInfo)
                     break;
                 case 'env':
                     dom.setAttribute('style', 'background-image: url( "./public/img/huanjing_hover.png");')
                     index = 4;
-                    // renderModelDevice(Savety_MarkInfo)
                     break;
                 case 'people':
                     dom.setAttribute('style', 'background-image: url( "./public/img/renyuan_hover.png");')
                     index = 5;
-                    // renderModelDevice(people_MarkInfo)
                     break;
                 case 'video':
                     dom.setAttribute('style', 'background-image: url( "./public/img/jiankong_hover.png");')
                     index = 6;
-                    // renderModelDevice(video_MarkInfo)
                     break;
                 case 'device':
                     dom.setAttribute('style', 'background-image: url( "./public/img/shebei_hover.png");')
                     index = 7;
-                    // renderModelDevice(Lifter_MarkInfo)
-                    // renderModelDevice(Crane_MarkInfo)
-                    // chanCraneAngleAnimate(CraneUUIDS[0])
-                    // chanLifterAnimate(LifterUUIDS[0])
                     break;
                 default:
                     break;
@@ -527,8 +519,24 @@ height: 100%;">
             if (index == 3) {
                 renderModelDevice(Quality_MarkInfo, 3)
             }
-            if(index == 4){
+            if (index == 4) {
                 renderModelDevice(Env_MarkInfo, 5)
+            }
+            if (index == 5) {
+                renderModelDevice(people_MarkInfo, 4)
+            }
+            if (index == 6) {
+                renderModelDevice(video_MarkInfo, 5)
+            }
+            if (index == 7) {
+
+                // renderModelDevice(Lifter_MarkInfo, 1)
+                // renderModelDevice(Crane_MarkInfo, 2)
+                chanCraneAngleAnimate(CraneUUIDS[0])
+                // chanLifterAnimate(LifterUUIDS[0])
+            }
+            else {
+                renderModelDevice([], 7)
             }
 
 
@@ -593,9 +601,6 @@ height: 100%;">
                                 "<div class='info_2' > <span class='speed'>速度：" + "-" + "</span> " + " <span class='load1'>载重：" + "-" + "</span> " + "</div>" +
                                 "<div class='uuid1' style='height:0px;overflow:hidden' >" + element.uuid + "</div>" +
 
-                                " <div class='ball-scale-ripple-multiple'>" +
-                                " <div></div>" + "<div></div>" + "<div></div>" +
-                                "<span class ='loadingInfo' >数据同步中</span>" +
 
 
                                 "</div>";
@@ -739,7 +744,7 @@ height: 100%;">
 
             let center, size, uuidBoxs = [];
             let box = new spdengine.Box33D;
-            await api3d.getComponentBoundingBox(uuid, box);
+            await api3d.getElementBoundingBox(uuid, box);
             center = box.getCenter();
             size = box.getSize();
             uuidBoxs.push(

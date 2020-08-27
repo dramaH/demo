@@ -278,11 +278,11 @@ height: 100%;">
         const Video_MarkInfo = [
             {
                 subLineLength: 0,
-                uuid: "FAtMXcpov06OFWDvH0EZfgEA",
-                deviceId: "FAtMXcpov06OFWDvH0EZfgEA",
+                uuid: "FAtMXcpov06OFWDvH0EYdAEA",
+                deviceId: "FAtMXcpov06OFWDvH0EYdAEA",
                 isPointStyle: true,
                 level: 'video',
-                name:'视频1'
+                name: '视频1'
             },
             {
                 subLineLength: 0,
@@ -290,7 +290,7 @@ height: 100%;">
                 deviceId: "FAtMXcpov06OFWDvH0EcEQEA",
                 isPointStyle: true,
                 level: 'video',
-                name:'视频2'
+                name: '视频2'
             },
             {
                 subLineLength: 0,
@@ -298,15 +298,15 @@ height: 100%;">
                 deviceId: "FAtMXcpov06OFWDvH0Ed6AEA",
                 isPointStyle: true,
                 level: 'video',
-                name:'视频3'
+                name: '视频3'
             },
             {
                 subLineLength: 0,
-                uuid: "FAtMXcpov06OFWDvH0Ee9AEA",
-                deviceId: "FAtMXcpov06OFWDvH0Ee9AEA",
+                uuid: "FAtMXcpov06OFWDvH0EiggEA",
+                deviceId: "FAtMXcpov06OFWDvH0EiggEA",
                 isPointStyle: true,
                 level: 'video',
-                name:'视频4'
+                name: '视频4'
             },
             {
                 subLineLength: 0,
@@ -314,7 +314,7 @@ height: 100%;">
                 deviceId: "FAtMXcpov06OFWDvH0EeYgEA",
                 isPointStyle: true,
                 level: 'video',
-                name:'视频5'
+                name: '视频5'
             },
             {
                 subLineLength: 0,
@@ -322,7 +322,7 @@ height: 100%;">
                 deviceId: "FAtMXcpov06OFWDvH0Ee+wEA",
                 isPointStyle: true,
                 level: 'video',
-                name:'视频6'
+                name: '视频6'
             }
         ];
 
@@ -366,7 +366,6 @@ height: 100%;">
 
         // 监控
         const videoUUIDS = [];
-        const video_MarkInfo = []
         const playUrl = [];
 
         // 总览
@@ -540,7 +539,7 @@ height: 100%;">
                 renderModelDevice(people_MarkInfo, 4)
             }
             if (index == 6) {
-                renderModelDevice(video_MarkInfo, 5)
+                renderModelDevice(Video_MarkInfo, 6)
             }
             if (index == 7) {
 
@@ -634,6 +633,10 @@ height: 100%;">
                             break;
                         case 5:
                             html = "<div class='env'  id='" + element.level + "'>" +
+                                "</div>";
+                            break;
+                        case 6:
+                            html = "<div class='videoLable'  >" + element.name +
                                 "</div>";
                             break;
                         case 4:

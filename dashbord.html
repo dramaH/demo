@@ -9,7 +9,7 @@ height: 100%;">
           content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" href="./public/css/devicemark.css">
     <style>
-    #cesiumContainer {
+        #cesiumContainer {
             width: 100%;
             height: 100%;
             margin: 0;
@@ -47,12 +47,26 @@ height: 100%;">
     <script src="./public/spdengine/spdengine.min.js"></script>
     <div class="container" id="container" style="padding: 0;margin:0;">
 
-        <div class="left">
-            <img src="./public/img/2-1.png" alt="">
+        <div class="left" id="left">
+            <img src="./public/img/2-1.png" alt="" id="leftImg">
+            <div class="leftBottomVideo" id="leftBottomVideo"></div>
+
+            <div id="videoListLeft" class="videoList">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+
         </div>
-        <div class="right">
-            <img src="./public/img/2-2.png" alt="" style="width: 100%;
-            height: 100%;">
+        <div class="right" id="right">
+            <img src="./public/img/2-2.png" alt="" id="rightImg">
+
+            <div id="videoListRight" class="videoList">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+
         </div>
 
         <div class="bench" id="cesiumContainer">
@@ -76,8 +90,21 @@ height: 100%;">
     <script>
         var Apis = spdengine.Apis;
         const right = document.getElementById('cesiumContainer');
-        const navs = document.getElementsByClassName("navDevicenNav")[0]
+        const navs = document.querySelectorAll(".navDevicenNav div");
+        document.getElementsByClassName("survey")[0].setAttribute('style', 'background-image: url( "./public/img/zonglan_hover.png");')
+
+        // 监听按钮点击事件
+        navs.forEach((nav) => {
+            nav.addEventListener("click", function () {
+                navs.forEach(x => x.removeAttribute("style"))
+                clickOnChange(nav, nav.className)
+            }
+            )
+        })
+
         var machineType = 1; //  1 升降机 2塔吊 3安全\质量 4人员定位 5环境 6监控
+
+        var currentNav = "survey";
 
         // 人员定位相关变量
         const peopleUUid = ["ZM6Onckp5E+nTxoMmJgTXgEA"];
@@ -111,6 +138,7 @@ height: 100%;">
 
 
 
+
         // 主函数【模型渲染】
         const rightBench = spdengine.Scott.create({
             "container": right,
@@ -132,13 +160,6 @@ height: 100%;">
                 spdengine.Scott.load(rightBench, { url: "./public/demo/demoRenderFile/", workerUrl: "./public/spdengine/", orgModelId: 1, newModelId: 1, modelMatrix: new Matrix43D().setPosition(new Vector33D(0, 0, 0)) });
                 api3d.addEventListener("fileloader_geomallloadend", () => {
 
-
-
-
-                    // 监听按钮点击事件
-                    navs.forEach((nav) => {
-                        nav.addeventlistener("click", clickOnChange(nav.value), false)
-                    })
 
 
 
@@ -176,37 +197,85 @@ height: 100%;">
 
         * @param type 点击类型  1 升降机 2塔吊 3安全\质量 4人员定位 5环境 6监控 默认0 总览
         */
-        function clickOnChange(type) {
+        function clickOnChange(dom, type) {
             console.log(type)
-            switch (key) {
-                case 1:
-
+            let left = document.getElementById("leftImg");
+            let right = document.getElementById("rightImg");
+            if (currentNav == 'type') return;
+            let leftBottomVideo = document.getElementById("leftBottomVideo");
+            let videoListLeft = document.getElementById("videoListLeft");
+            let videoListRight = document.getElementById("videoListRight");
+            let index = 2;
+            switch (type) {
+                case 'survey':
+                    dom.setAttribute('style', 'background-image: url( "./public/img/zonglan_hover.png");')
+                    index = 2;
                     break;
-                case 2:
-
+                case 'qualisafety':
+                    dom.setAttribute('style', 'background-image: url( "./public/img/zhiliang_hover.png");')
+                    index = 3;
                     break;
-                case 3:
-
+                case 'env':
+                    dom.setAttribute('style', 'background-image: url( "./public/img/huanjing_hover.png");')
+                    index = 4;
                     break;
-                case 4:
-
+                case 'people':
+                    dom.setAttribute('style', 'background-image: url( "./public/img/renyuan_hover.png");')
+                    index = 5;
                     break;
-                case 5:
-
+                case 'video':
+                    dom.setAttribute('style', 'background-image: url( "./public/img/jiankong_hover.png");')
+                    index = 6;
                     break;
-                case 6:
-
+                case 'device':
+                    dom.setAttribute('style', 'background-image: url( "./public/img/shebei_hover.png");')
+                    index = 7;
                     break;
                 default:
                     break;
             }
-            // 一、清除模型原有标签并重新绘制
+            videoListLeft.removeAttribute("style")
+            videoListRight.removeAttribute("style")
+            left.removeAttribute('style');
+            right.removeAttribute('style');
+            leftBottomVideo.removeAttribute('style');
+            if (index == 6) {
+                videoListLeft.setAttribute("style", "display:block")
+                videoListRight.setAttribute("style", "display:block")
+                leftBottomVideo.setAttribute('style', 'display:none');
+                left.setAttribute('style', 'display:none');
+                right.setAttribute('style', 'display:none');
+            }
+            // }
+            // else{
+            //     videoListLeft.removeAttribute("style")
+            //     videoListRight.removeAttribute("style")
+            //     left.removeAttribute('style');
+            //     right.removeAttribute('style');
+            // }
+            if (index == 7 || index == 5 || index == 4 || index == 3) {
+                left.setAttribute('style', 'width: 100%;height: 100%;')
+            }
+            // } else {
+            //     left.removeAttribute('style');
+            // }
+            if (index != 2) {
+                leftBottomVideo.setAttribute('style', 'display:none');
+                // } else {
+                //     leftBottomVideo.removeAttribute('style');
+                // }
 
-            // 二、更换两侧图表背景
 
-            // 三、分类型执行动画
+                // 一、清除模型原有标签并重新绘制
 
+                // 二、更换两侧图表背景
 
+                // 三、分类型执行动画
+
+            }
+            left.setAttribute('src', `./public/img/${index}-1.png`)
+            right.setAttribute('src', `./public/img/${index}-2.png`)
+            currentNav = type;
         }
 
         /**

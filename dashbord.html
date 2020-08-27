@@ -130,7 +130,7 @@ height: 100%;">
         const Lifter_MarkInfo = []
 
         // 塔吊变量
-        const CraneUUIDS = [];
+        const CraneUUIDS = [{ top: "uh2ZWLUDs0KWzUmNSu0yBwEA", botton: "uh2ZWLUDs0KWzUmNSu0mkgEA" }];
         const Crane_MarkInfo = [];
 
         // 安全
@@ -347,7 +347,7 @@ height: 100%;">
                     index = 7;
                     // renderModelDevice(Lifter_MarkInfo)
                     // renderModelDevice(Crane_MarkInfo)
-                    // chanCraneAngleAnimate(CraneUUIDS[0])
+                    chanCraneAngleAnimate(CraneUUIDS[0])
                     // chanLifterAnimate(LifterUUIDS[0])
                     break;
                 default:
@@ -423,7 +423,7 @@ height: 100%;">
         function renderModelDevice(markInfo, machineType) {
 
             if (!markInfo) return
-            Iapi.PARAMS.mk_hiddenAllMarker = true;
+            api.PARAMS.mk_hiddenAllMarker = true;
             currentDeviceId.forEach((item) => {
                 api3d.removeMarkerDeviceInfo(item);
             });
@@ -523,7 +523,7 @@ height: 100%;">
         * @param message 来自ws的塔吊信息
         * @param uuid 
         */
-        function chanCraneAngleAnimate(uuid) {
+        function chanCraneAngleAnimate(item) {
             // let cranes = [];
             // cranes.push(spdengine.atob(uuid))
             // let hangings = [];
@@ -536,12 +536,10 @@ height: 100%;">
             // api.PARAMS.ani_run = true;
 
 
-
-            let center = []
-
-
-
-            let _value = [];
+            let center, _value = [];
+            getCenter(item.bottom).then((res) => {
+                center = res.center
+            })
             _value.push(0);
             _value.push(0);
             _value.push(45 * (Math.PI / 180));
@@ -549,26 +547,11 @@ height: 100%;">
             _value.push(center.x);
             _value.push(center.y);
             _value.push(center.z);
-            let flash = { guid: uuid, aniType: 0, transType: 1, value: _value, totalTime: flag ? 1 : 13, sort: 0, chunkid: new Date().valueOf() };
+            let flash = { guid: item.top, aniType: 0, transType: 1, value: _value, totalTime: 13, sort: 0, chunkid: new Date().valueOf() };
             flashs.push(flash);
             api.PARAMS.ani_enable = true;
             api3d.setAnimateData(flashs);
             api.PARAMS.ani_run = true;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
 
         /**
@@ -593,7 +576,7 @@ height: 100%;">
                 api.PARAMS.ani_enable = true;
                 api3d.setAnimateData(flashs);
                 api.PARAMS.ani_run = true;
-                // this.tapi.enableMarkerRefresh(); // 刷新标签
+
                 window.clearTimeout(timer);
             }, 600);
 
@@ -621,12 +604,12 @@ height: 100%;">
          */
         async function getCenter(uuid) {
 
-            let center, size, uuidBoxs;
+            let center, size, uuidBoxs = [];
             let box = new spdengine.Box33D;
             await api3d.getComponentBoundingBox(uuid, box);
             center = box.getCenter();
             size = box.getSize();
-            return uuidBoxs.push(
+            uuidBoxs.push(
                 {
                     uuid,
                     center,
@@ -634,6 +617,7 @@ height: 100%;">
                 }
             );
 
+            return uuidBoxs
 
         }
 

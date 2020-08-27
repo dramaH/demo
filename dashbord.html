@@ -92,7 +92,7 @@ height: 100%;">
         const right = document.getElementById('cesiumContainer');
         var machineType = 1;                                                 //  1 升降机 2塔吊 3安全\质量 4人员定位 5环境 6监控
         var currentDeviceId = [];                                             // 当前需渲染的标签id 集合
-
+        var currentNav = "survey";
 
         // 升降机变量
         const LifterUUIDS = [];
@@ -133,9 +133,8 @@ height: 100%;">
             )
         })
 
-        var machineType = 1; //  1 升降机 2塔吊 3安全\质量 4人员定位 5环境 6监控
 
-        var currentNav = "survey";
+
 
         // 人员定位相关变量
         const peopleUUid = ["ZM6Onckp5E+nTxoMmJgTXgEA"];

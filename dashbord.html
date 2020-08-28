@@ -260,12 +260,117 @@ height: 100%;">
         // 人员定位相关变量
         const peopleUUid = [
             {
-                uuid: "ZM6Onckp5E+nTxoMmJgTXgEA",
-                points: []
+                chunkid: 9,
+                uuid: "ewRGDtnRC0iGNl6kQkfCcQEA",
+                points: [
+
+                    {
+                        x: 111.123046875,
+                        y: 887.6661376953125,
+                        z: 1000.3447265625
+
+                    },
+                    {
+                        x: 113.02041625976562,
+                        y: 433.7122497558594,
+                        z: 1001.7283935546875
+                    },
+                    {
+                        x: 270.9549560546875,
+                        y: 1039.84765625,
+                        z: 1003.10498046875
+                    },
+                    {
+                        x: 349.8845520019531,
+                        y: 1317.129150390625,
+                        z: 1005.7279052734375
+                    },
+                    {
+                        x: 417.70751953125,
+                        y: 1465.37646484375,
+                        z: 1007.636962890625
+                    },
+                    {
+                        x: 498.3638000488281,
+                        y: 1587.879638671875,
+                        z: 1009.0133666992188
+                    },
+                    {
+                        x: 586.500732421875,
+                        y: 1727.442626953125,
+                        z: 1011.3596801757812
+                    },
+                ]
+            },
+            {
+                chunkid: 10,
+                uuid: "ewRGDtnRC0iGNl6kQkfBMQEA",
+                points: [
+
+                    {
+                        x: -292.1842041015625,
+                        y: 898.59814453125,
+                        z: 998.2147216796875
+                    },
+                    {
+                        x: 116.02041625976562,
+                        y: 413.7122497558594,
+                        z: 1000.7283935546875
+                    },
+                    {
+                        x: 250.9549560546875,
+                        y: 1019.84765625,
+                        z: 1001.10498046875
+                    },
+                    {
+                        x: 319.8845520019531,
+                        y: 1307.129150390625,
+                        z: 1003.7279052734375
+                    },
+                    {
+                        x: 407.70751953125,
+                        y: 1435.37646484375,
+                        z: 1006.636962890625
+                    },
+                    {
+                        x: 497.3638000488281,
+                        y: 1567.879638671875,
+                        z: 1008.0133666992188
+                    },
+                    {
+                        x: 586.500732421875,
+                        y: 1717.442626953125,
+                        z: 1010.3596801757812
+                    },
+                ]
             }
         ];
-        const people_MarkInfo = [];
-        let peoplePoints = [];
+        const people_MarkInfo = [
+            {
+                subLineLength: 0,
+                uuid: "ewRGDtnRC0iGNl6kQkfCcQEA",
+                deviceId: "FAtMXcpov06OFWDvH0EYdAEA",
+                isPointStyle: true,
+                level: 'video',
+                name: '张强'
+            },
+            {
+                subLineLength: 0,
+                uuid: "ewRGDtnRC0iGNl6kQkfBMQEA",
+                deviceId: "FAtMXcpov06OFWDvH0EcEQEA",
+                isPointStyle: true,
+                level: 'video',
+                name: '李永'
+            },
+            // {
+            //     subLineLength: 0,
+            //     uuid: "FAtMXcpov06OFWDvH0EcEQEA",
+            //     deviceId: "FAtMXcpov06OFWDvH0EcEQEA",
+            //     isPointStyle: true,
+            //     level: 'video',
+            //     name: '李永'
+            // },
+        ];
 
 
         // 监控
@@ -350,19 +455,93 @@ height: 100%;">
         document.getElementsByClassName("survey")[0].setAttribute('style', 'background-image: url( "./public/img/zonglan_hover.png");')
         videoPlay();
 
-
-
+        // #01cc07ff
+        // #f01111ff
         // 总览
         const uuidStyleForsurvey = [{  // 待改色的构件
             uuid: "FAtMXcpov06OFWDvH0Ee+wEA",
+            color: "#f01111ff"
+        },
+        {
+            uuid: "FAtMXcpov06OFWDvH0Ee9AEA",
+            color: "#f01111ff"
+        },
+        {
+            uuid: "JoukwQny1Uys1Z+wjq6++QEA",
+            color: "#f01111ff"
+        },
+        {
+            uuid: "FAtMXcpov06OFWDvH0EinAEA",
+            color: "#f01111ff"
+        },
+        {
+            uuid: "FAtMXcpov06OFWDvH0EigwEA",
+            color: "#f01111ff"
+        },
+
+        {
+            uuid: "FAtMXcpov06OFWDvH0EigwEA",
+            color: "#f01111ff"
+        },
+        {
+            uuid: "FAtMXcpov06OFWDvH0Ee9QEA",
+            color: "#f01111ff"
+        },
+
+
+        //
+        {
+            uuid: "FAtMXcpov06OFWDvH0Ee+gEA", // 
             color: "#01cc07ff"
         },
         {
-            uuid: "FAtMXcpov06OFWDvH0Ee+gEA",
+            uuid: "FAtMXcpov06OFWDvH0EZfgEA",
+            color: "#01cc07ff"
+        }, {
+            uuid: "FAtMXcpov06OFWDvH0Ed6gEA",
+            color: "#01cc07ff"
+        },
+
+        {
+            uuid: "FAtMXcpov06OFWDvH0Ed6wEA",
+            color: "#01cc07ff"
+        },
+        {
+            uuid: "FAtMXcpov06OFWDvH0Ed6QEA",
+            color: "#01cc07ff"
+        },
+        {
+            uuid: "FAtMXcpov06OFWDvH0Ed6AEA",
+            color: "#01cc07ff"
+        },
+        //
+
+        {
+            uuid: "ewRGDtnRC0iGNl6kQkfBMQEA", // 安全帽
             color: "#f01111ff"
-        }]
+        }
 
 
+        ]
+
+        const hiddenComListd = [
+            'ewRGDtnRC0iGNl6kQkfBMQEA',
+            'ewRGDtnRC0iGNl6kQkfCHgEA',
+            'ewRGDtnRC0iGNl6kQkfBHAEA',
+            'ewRGDtnRC0iGNl6kQkfD4QEA',
+            'ewRGDtnRC0iGNl6kQkfDygEA',
+            'rxnA9g+JEkybEWqUG182bgEA',
+            'ewRGDtnRC0iGNl6kQkfCIQEA',
+            'ewRGDtnRC0iGNl6kQkfCygEA',
+            'ewRGDtnRC0iGNl6kQkfC1QEA',
+            'ewRGDtnRC0iGNl6kQkfC5wEA',
+            'ewRGDtnRC0iGNl6kQkfC5gEA',
+            'ewRGDtnRC0iGNl6kQkfCvwEA',
+            'ewRGDtnRC0iGNl6kQkfCRAEA',
+            'ewRGDtnRC0iGNl6kQkfCcQEA',
+            'ewRGDtnRC0iGNl6kQkfClAEA'
+
+        ]
 
 
 
@@ -404,7 +583,7 @@ height: 100%;">
 
                     _click()
                     changeComColor(uuidStyleForsurvey)
-
+                    hiddenCom(hiddenComListd)
 
                 });
             }
@@ -428,6 +607,8 @@ height: 100%;">
         */
         function clickOnChange(dom, type) {
             console.log(type)
+            api.PARAMS.ani_run = false;
+            api3d.animateReset()
             let left = document.getElementById("leftImg");
             let right = document.getElementById("rightImg");
             if (currentNav == type) return;
@@ -519,8 +700,9 @@ height: 100%;">
                 renderModelDevice(Env_MarkInfo, 5)
             }
             if (index == 5) {
+                // shwoCom(hiddenComListd)
                 renderModelDevice(people_MarkInfo, 4)
-                animateForpeople()
+                animateForpeople(peopleUUid, api3d)
             }
             if (index == 6) {
                 renderModelDevice(Video_MarkInfo, 6)
@@ -587,8 +769,8 @@ height: 100%;">
                 if (html == '') {
                     switch (machineType) {  // 全局变量 1 升降机 2塔吊 3安全\质量 4人员定位 5环境 6监控
                         case 1:
-                            html = "<div class='deviceInfoBox'  id='" + element.serialNo + "'>" +
-                                "<div class='name'>" + element.name + "</div>" +
+                            html = "<div class='deviceInfoBox' >" +
+                                "<div class='name'>" + "升降机" + "</div>" +
                                 "<div class='serialNo'>备案号：" + element.serialNo + "</div>" +
 
                                 "<div class='info_1' >  <span class='stopHeight'>运行高度：" + "-" + "</span> " + "</div>" +
@@ -624,10 +806,10 @@ height: 100%;">
                                 "</div>";
                             break;
                         case 4:
-                            html = "<div class='position'  id='" + element.serialNo + "'>" +
+                            html = "<div class='videoLable' >" +
                                 "<div >" + element.name + "</div>" +
 
-                                "<div class='uuid' style='height:0px;overflow:hidden' >" + element.uuid + "</div>" +
+
                                 "</div>";
                             break;
                         default:
@@ -734,15 +916,15 @@ height: 100%;">
                 let uuid = item.uuid;
                 let points = [];
 
-                item.points.forEach((res, index) => {
+                item.points.forEach((res) => {
                     let vec = new spdengine.Vector33D
-                    vec.set(...res)
+                    vec.set(res.x, res.y, res.z)
                     points.push(vec)
 
                 })
-                let route = new Route(points, api3d);
+                let route = new spdengine.Route(points, api3d);
                 api.PARAMS.ani_enable = true;
-                route.setRouteAnimation(spdengine.atob(uuid), 6.0, 0, new Date().valueOf());
+                route.setRouteAnimation(spdengine.atob(uuid), 15.0, 0, item.chunkid);
                 // let vec0 = new Vector33D;
                 // let vec1 = new Vector33D;
                 // let vec2 = new Vector33D;
@@ -799,8 +981,23 @@ height: 100%;">
 
 
 
-
-
+        /**
+        * @description 隐藏构件
+         */
+        function hiddenCom(uuids) {
+            console.log(api3d)
+            uuids.forEach((res) => {
+                api3d.hiddenComponent(res)
+            })
+        }
+        /**
+        * @description 显示构件
+        */
+        function shwoCom(uuids) {
+            uuids.forEach((res) => {
+                api.showComponents(res)
+            })
+        }
 
 
 
@@ -844,7 +1041,7 @@ height: 100%;">
                     btoaUUIDS.push(spdengine.btoa(element));
                 });
                 console.log(btoaUUIDS);
-                getCenter1(btoaUUIDS).then((res) => {
+                getCenter1(btoaUUIDS[0]).then((res) => {
                     console.log(res[0].center)
                 })
             });

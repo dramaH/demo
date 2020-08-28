@@ -89,6 +89,7 @@
     width: 35px;
     height: 42px;
     background-repeat: no-repeat;
+    cursor: pointer;
 }
 
 #safe2 {
@@ -96,6 +97,7 @@
     width: 35px;
     height: 42px;
     background-repeat: no-repeat;
+    cursor: pointer;
 }
 
 #safe3 {
@@ -103,6 +105,7 @@
     width: 35px;
     height: 42px;
     background-repeat: no-repeat;
+    cursor: pointer;
 }
 
 #quality1 {
@@ -110,6 +113,7 @@
     width: 35px;
     height: 42px;
     background-repeat: no-repeat;
+    cursor: pointer;
 }
 
 #quality2 {
@@ -117,6 +121,7 @@
     width: 35px;
     height: 42px;
     background-repeat: no-repeat;
+    cursor: pointer;
 }
 
 #env1 {
@@ -151,6 +156,27 @@
     height: 30px;
     line-height: 30px;
     text-align: center;
+}
+
+.safetyContainer{
+    background-image: url("../img/aqjc.png");
+    width: 536px;
+    height: 822px;
+    background-repeat: no-repeat;
+    position: fixed;
+    z-index: 999;
+    left: 40%;
+    top: 5%;
+    background-size: contain;
+}
+
+.safetyContainer .safetyClose{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 15%;
+    top: 12px;
+    cursor: pointer;
 }
 
 .container .leftBottomVideo #surveyVideo video {

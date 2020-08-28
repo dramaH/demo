@@ -695,7 +695,8 @@ height: 100%;">
                 changeComColor(uuidStyleForsurvey)
             }
             if (index == 3) {
-                renderModelDevice(Quality_MarkInfo, 3)
+                renderModelDevice(Quality_MarkInfo, 3);
+                clickQualityMarkInfo();
             }
             if (index == 4) {
                 renderModelDevice(Env_MarkInfo, 5)
@@ -720,6 +721,44 @@ height: 100%;">
         }
 
         /**
+        * @description 安全质量标签点击事件
+        * @param uuidStyle [{uuid:xxx,color:#000000}]
+        */
+        function clickQualityMarkInfo() {
+            Quality_MarkInfo.forEach(item => {
+                console.log("clickQualityMarkInfo -> document.getElementById(item.level)", document.getElementById(item.level))
+
+                document.getElementById(item.level).addEventListener("click",function (){
+                    clickQualityMarkInfoEvent(item.level)
+                })
+            })
+        }
+
+        function clickQualityMarkInfoEvent(level){
+            console.log("clickQualityMarkInfoEvent -> level", level)
+            switch (level) {
+                case 'safe2':
+                    let container =  document.createElement("div");
+                    container.className = "safetyContainer";
+                    let close = document.createElement("div");
+                    close.className = "safetyClose";
+                    container.appendChild(close);
+                    document.getElementsByClassName("container")[0].appendChild(container);
+
+
+
+                    document.getElementsByClassName("safetyClose")[0].addEventListener("click",function(){
+                        document.getElementsByClassName("container")[0].removeChild(document.getElementsByClassName("safetyContainer")[0]);
+                    })
+                    break;
+            
+                default:
+                    break;
+            }
+        }
+
+
+        /**
         * @description 为指定的构件集合修改颜色
         * @param uuidStyle [{uuid:xxx,color:#000000}]
         */
@@ -738,6 +777,7 @@ height: 100%;">
                 }, 0);
             });
         }
+        
 
 
         // 渲染模型标签
@@ -830,7 +870,6 @@ height: 100%;">
                 console.log(html);
                 info.div.innerHTML = html;
                 info.div.className = 'deviceInfoBoxParent';
-
 
             });
         }
